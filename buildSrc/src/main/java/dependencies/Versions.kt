@@ -1,6 +1,7 @@
 package dependencies
 
 object Versions {
+    val navigation_component = "2.3.0"
     val dagger2_version = "2.29.1"
     val firebase_crashlyticsGradle_version = "2.1.1"
     val google_services_version = "4.3.3"
@@ -11,7 +12,7 @@ object Versions {
     val constraintLayout = "2.0.1"
     val appCompat = "1.2.0"
     val gradle = "4.0.1"
-    val kotlin = "1.3.61"
+    val kotlin = "1.4.10"
     val leak_canary = "2.0"
     val compileSDKVersion = 29
     val buildToolsVersion = "29.0.3"

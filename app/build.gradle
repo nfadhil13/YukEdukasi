@@ -51,6 +51,10 @@ android {
             }
         }
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 
@@ -76,7 +80,9 @@ dependencies {
     implementation Dependencies.viewModel
     kapt AnnotationProcess.lifeCycleAnnotationProcess
 
-
+    //Navigation Component
+    implementation Dependencies.nav_fragment_ktx
+    implementation Dependencies.nav_ui_ktx
 
 
     //Retrofit
@@ -89,5 +95,7 @@ dependencies {
 
     //Leak canary
     implementation Dependencies.leak_canary
+
+
 
 }

@@ -5,6 +5,8 @@ package dependencies
 
 object Dependencies {
 
+    val nav_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation_component}"
+    val nav_fragment_ktx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_component}"
     val dagger2 = "com.google.dagger:dagger:${Versions.dagger2_version}"
     val recylerView = "androidx.recyclerview:recyclerview:${Versions.recyclerviewVersion}"
     val leak_canary = "com.squareup.leakcanary:leakcanary-android:${Versions.leak_canary}"
