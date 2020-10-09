@@ -1,9 +1,6 @@
 package com.fdev.yukedukasi.business.data.util
 
-import com.fdev.yukedukasi.business.data.cache.CacheConstants.CACHE_TIMEOUT
-import com.fdev.yukedukasi.business.data.cache.CacheErrors.CACHE_ERROR_TIMEOUT
-import com.fdev.yukedukasi.business.data.cache.CacheErrors.CACHE_ERROR_UNKNOWN
-import com.fdev.yukedukasi.business.data.cache.CacheResult
+
 import com.fdev.yukedukasi.business.data.network.NetworkConstants.NETWORK_TIMEOUT
 import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_TIMEOUT
 import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_UNKNOWN
@@ -59,30 +56,7 @@ suspend fun <T> safeApiCall(
     }
 }
 
-suspend fun <T> safeCacheCall(
-        dispatcher: CoroutineDispatcher,
-        cacheCall: suspend () -> T?
-): CacheResult<T?> {
-    return withContext(dispatcher) {
-        try {
-            // throws TimeoutCancellationException
-            withTimeout(CACHE_TIMEOUT){
-                CacheResult.Success(cacheCall.invoke())
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-            when (throwable) {
 
-                is TimeoutCancellationException -> {
-                    CacheResult.GenericError(CACHE_ERROR_TIMEOUT)
-                }
-                else -> {
-                    CacheResult.GenericError(CACHE_ERROR_UNKNOWN)
-                }
-            }
-        }
-    }
-}
 
 
 private fun convertErrorBody(throwable: HttpException): String? {

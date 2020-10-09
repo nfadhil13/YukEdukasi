@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.databinding.ActivityAuthBinding
@@ -24,6 +26,12 @@ class SplashFragment : AuthBaseFragment(){
     @Inject
     lateinit var sessionManager: SessionManager
 
+    lateinit var topAnimation : Animation
+
+    lateinit var botAnimation : Animation
+
+    lateinit var fadeAnimation : Animation
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSplashBinding.inflate(inflater,container,false)
         val view = binding.root
@@ -33,12 +41,25 @@ class SplashFragment : AuthBaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
+        initUI()
+    }
+
+    private fun initUI() {
+        topAnimation = AnimationUtils.loadAnimation(requireContext() , R.anim.top_animation)
+        botAnimation = AnimationUtils.loadAnimation(requireContext() , R.anim.bottom_animation)
+        fadeAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+        fadeAnimation.startOffset = botAnimation.duration
+        binding.apply {
+            imagePerson.animation = botAnimation
+            imageHat.animation = topAnimation
+            appTv.animation = fadeAnimation
+        }
     }
 
     private fun initObserver() {
         val lastUser = sessionManager.checkLastUserLogIn()
         lastUser?.let {
-        }?: navToLogin()
+        }
     }
 
     private fun navToLogin() {
