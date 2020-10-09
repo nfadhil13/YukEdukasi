@@ -1,0 +1,93 @@
+import dependencies.Versions
+
+import dependencies.Application
+
+import dependencies.Dependencies
+
+import dependencies.AnnotationProcess
+
+import dependencies.Java
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion Versions.compileSDKVersion
+    defaultConfig {
+        applicationId Application.applicationId
+        minSdkVersion Versions.mindSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionCode Application.versionCode
+        versionName Application.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = Java.java_version
+    }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src/main/res', 'src/main/res/layouts/auth', 'src/main/res/layouts/main'
+            }
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation Dependencies.kotlin_stdlib
+    implementation Dependencies.ktx
+    implementation Dependencies.kotlinCoroutine
+    implementation Dependencies.kotlin_coroutine_core
+
+    // Android
+    implementation Dependencies.appCompat
+    implementation Dependencies.contraintLayout
+    implementation Dependencies.google_material
+    implementation Dependencies.swipeRefreshLayout
+    implementation Dependencies.recylerView
+
+
+    //Live data & ViewModel
+    implementation Dependencies.liveData
+    implementation Dependencies.viewModel
+    kapt AnnotationProcess.lifeCycleAnnotationProcess
+
+
+
+
+    //Retrofit
+    implementation Dependencies.retrofit
+
+    //Dagger
+    implementation Dependencies.dagger2
+    kapt AnnotationProcess.dagger2AnnotationProcess
+
+
+    //Leak canary
+    implementation Dependencies.leak_canary
+
+}
