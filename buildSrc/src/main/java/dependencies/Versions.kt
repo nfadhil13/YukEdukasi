@@ -1,9 +1,9 @@
 package dependencies
 
 object Versions {
+    val gson_versions = "2.8.6"
     val hilt_viewmodel = "1.0.0-alpha01"
     val navigation_component = "2.3.0"
-    val dagger2_version = "2.29.1"
     val firebase_crashlyticsGradle_version = "2.1.1"
     val google_services_version = "4.3.3"
     val retorfit2 = "2.9.0"
@@ -16,7 +16,6 @@ object Versions {
     val kotlin = "1.4.10"
     val leak_canary = "2.0"
     val compileSDKVersion = 29
-    val buildToolsVersion = "29.0.3"
     val mindSdkVersion = 21
     val targetSdkVersion = 29
     val hilt = "2.28-alpha"

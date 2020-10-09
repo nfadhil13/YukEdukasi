@@ -6,4 +6,5 @@ object Constants {
     const val DEBUG = true // enable logging
 
     const val APP_PREFENCES: String = "com.fdev.yukedukasi"
+
 }

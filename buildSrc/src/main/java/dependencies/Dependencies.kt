@@ -4,6 +4,8 @@ package dependencies
 
 
 object Dependencies {
+
+    val gson = "com.squareup.retrofit2:converter-gson:${Versions.retorfit2}"
     val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     val hilt_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_viewmodel}"
     val nav_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation_component}"

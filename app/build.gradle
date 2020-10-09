@@ -89,6 +89,9 @@ dependencies {
 
     //Retrofit
     implementation Dependencies.retrofit
+    implementation Dependencies.gson
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
 
     //Hilt

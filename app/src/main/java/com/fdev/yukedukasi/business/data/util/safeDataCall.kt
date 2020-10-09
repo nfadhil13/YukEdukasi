@@ -6,6 +6,7 @@ import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_TIM
 import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_UNKNOWN
 import com.fdev.yukedukasi.business.data.network.NetworkResult
 import com.fdev.yukedukasi.business.data.util.GenericErrors.ERROR_UNKNOWN
+import com.fdev.yukedukasi.util.ApiException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
@@ -44,6 +45,9 @@ suspend fun <T> safeApiCall(
                             code,
                             errorResponse
                     )
+                }
+                is ApiException -> {
+                    NetworkResult.GenericError(errorMessage = throwable.message)
                 }
                 else -> {
                     NetworkResult.GenericError(

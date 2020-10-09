@@ -8,10 +8,19 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import com.fdev.yukedukasi.R
+import com.fdev.yukedukasi.business.domain.model.User
+import com.fdev.yukedukasi.business.interactors.auth.LogIn
 import com.fdev.yukedukasi.databinding.ActivityAuthBinding
 import com.fdev.yukedukasi.databinding.FragmentSplashBinding
+import com.fdev.yukedukasi.framework.datasource.network.apicall.SiswaApiService
 import com.fdev.yukedukasi.util.SessionManager
+import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +34,9 @@ class SplashFragment : AuthBaseFragment(){
 
     @Inject
     lateinit var sessionManager: SessionManager
+
+    @Inject
+    lateinit var login : LogIn
 
     lateinit var topAnimation : Animation
 
@@ -53,6 +65,21 @@ class SplashFragment : AuthBaseFragment(){
             imagePerson.animation = botAnimation
             imageHat.animation = topAnimation
             appTv.animation = fadeAnimation
+        }
+        test()
+    }
+
+    fun test(){
+        CoroutineScope(IO).launch {
+            val result = login.LogIn(User("12345632" , "123456"))
+            result.onEach { dataState ->
+                dataState?.let{nonNullDataState->
+                    printLogD("Test" , "data : ${nonNullDataState.data}")
+                    printLogD("Test" , "stateEvent : ${nonNullDataState.stateEvent}")
+                    printLogD("Test" , "message : ${nonNullDataState.stateMessage}")
+                }
+            }.launchIn(this)
+
         }
     }
 
