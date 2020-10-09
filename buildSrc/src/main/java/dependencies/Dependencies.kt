@@ -4,10 +4,10 @@ package dependencies
 
 
 object Dependencies {
-
+    val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+    val hilt_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_viewmodel}"
     val nav_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation_component}"
     val nav_fragment_ktx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_component}"
-    val dagger2 = "com.google.dagger:dagger:${Versions.dagger2_version}"
     val recylerView = "androidx.recyclerview:recyclerview:${Versions.recyclerviewVersion}"
     val leak_canary = "com.squareup.leakcanary:leakcanary-android:${Versions.leak_canary}"
     val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
@@ -15,7 +15,6 @@ object Dependencies {
     val kotlinCoroutine  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutine}"
     val kotlin_coroutine_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
     val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     val contraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"

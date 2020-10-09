@@ -16,6 +16,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'dagger.hilt.android.plugin'
+
 android {
     compileSdkVersion Versions.compileSDKVersion
     defaultConfig {
@@ -88,9 +90,12 @@ dependencies {
     //Retrofit
     implementation Dependencies.retrofit
 
-    //Dagger
-    implementation Dependencies.dagger2
-    kapt AnnotationProcess.dagger2AnnotationProcess
+
+    //Hilt
+    implementation Dependencies.hilt
+    kapt AnnotationProcess.hiltAnnotationProcess
+    implementation Dependencies.hilt_viewmodel
+    kapt AnnotationProcess.hiltViewModelAnnotationProcess
 
 
     //Leak canary

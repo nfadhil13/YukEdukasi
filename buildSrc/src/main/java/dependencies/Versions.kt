@@ -1,6 +1,7 @@
 package dependencies
 
 object Versions {
+    val hilt_viewmodel = "1.0.0-alpha01"
     val navigation_component = "2.3.0"
     val dagger2_version = "2.29.1"
     val firebase_crashlyticsGradle_version = "2.1.1"

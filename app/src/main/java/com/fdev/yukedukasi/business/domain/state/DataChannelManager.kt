@@ -80,15 +80,7 @@ abstract class DataChannelManager<ViewState> {
         messageManager.removeCurrentMessage()
     }
 
-    fun clearStateMessages() = messageManager.removeCurrentMessage()
 
-    fun printCurrentStateMessages(){
-        printLogD("DCM", "${messageManager.getCurrentMessasge()}")
-
-    }
-
-    // for debugging
-    fun getActiveJobs() = stateEventManager.getActiveJobNames()
 
     fun clearActiveStateEventCounter()
             = stateEventManager.clearActiveStateEventCounter()

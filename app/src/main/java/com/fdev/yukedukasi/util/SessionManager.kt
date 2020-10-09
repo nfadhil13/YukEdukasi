@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
 /*
@@ -17,11 +18,12 @@ import javax.inject.Inject
     This class is singleton
  */
 
+@Singleton
 class SessionManager
 @Inject
 constructor(
-        val sharedPreferences: SharedPreferences,
-        val prefEditor: SharedPreferences.Editor
+        private val sharedPreferences: SharedPreferences,
+        private val prefEditor: SharedPreferences.Editor
 ){
 
     companion object{
