@@ -6,6 +6,7 @@ import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.databinding.ActivityAuthBinding
 import com.fdev.yukedukasi.databinding.ActivityMainBinding
 import com.fdev.yukedukasi.framework.presentation.BaseActivity
+import com.fdev.yukedukasi.framework.presentation.show
 
 class MainActivity : BaseActivity() {
 
@@ -22,11 +23,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun displayProgressBar(isDisplayed: Boolean) {
-        
+        binding.mainProgressbar.show(isDisplayed)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        _bindi
+        _binding = null
     }
 }

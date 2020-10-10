@@ -20,6 +20,10 @@ sealed class UIComponentType{
             val callback: AreYouSureCallback
     ): UIComponentType()
 
+    class TryAgainDialog(
+            val callback: AreYouSureCallback
+    ): UIComponentType()
+
     class SnackBar: UIComponentType()
 
     class None: UIComponentType()

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.model.Siswa
 import com.fdev.yukedukasi.business.domain.model.User
+import com.fdev.yukedukasi.business.domain.state.*
 import com.fdev.yukedukasi.databinding.FragmentSplashBinding
 import com.fdev.yukedukasi.framework.presentation.auth.state.AuthStateEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,6 +92,8 @@ class SplashFragment : AuthBaseFragment() {
                             navToLogin()
                         }
                     }
+                }else{
+                    navToLogin()
                 }
 
             }
@@ -128,13 +131,45 @@ class SplashFragment : AuthBaseFragment() {
         viewModel.sessionManager.login(newSiswa = siswa)
     }
 
+    override fun handleStateMessage(stateMessage: StateMessage, stateMessageCallback: StateMessageCallback) {
+        if(stateMessage.response.messageType is  MessageType.Error){
+            val newStateMessage = StateMessage(
+                    response =  Response(
+                            message = stateMessage.response.message +"\n\n" + getString(R.string.retry_label),
+                            uiComponentType = UIComponentType.TryAgainDialog(object : AreYouSureCallback{
+                                override fun proceed() {
+                                    checkLastUser()
+                                }
+
+                                override fun cancel() {
+                                    requireActivity().finishAndRemoveTask()
+                                }
+                            })
+                            ,
+                            messageType = stateMessage.response.messageType
+                    )
+            )
+            super.handleStateMessage(newStateMessage, stateMessageCallback)
+        }else{
+            super.handleStateMessage(stateMessage, stateMessageCallback)
+        }
+
+    }
+
     private fun navToLogin() {
         findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+    }
+
+    private fun cancelAnimation(){
+        fadeAnimation.cancel()
+        botAnimation.cancel()
+        topAnimation.cancel()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+
     }
 
 }

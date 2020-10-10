@@ -11,6 +11,8 @@
     <string name="text_success">Sukses</string>
     <string name="are_you_sure">Apakah kamu yakin?</string>
     <string name="text_cancel">tidak</string>
-    <string name="text_yes">ya</string>
+    <string name="text_yes">Ya</string>
     <string name="pin_label">PIN</string>
+    <string name="retry_label">\" coba lagi?\"</string>
+    <string name="try_again">Ulangi Lagi?</string>
 </resources>

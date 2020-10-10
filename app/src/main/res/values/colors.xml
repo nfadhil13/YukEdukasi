@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
 
-    <color name="colorblack">#000000</color>
+    <color name="black">#000000</color>
     <color name="orange">#E25B45</color>
     <color name="green">#ADC865</color>
+    <color name="menu_background">#ECE5DC</color>
 </resources>

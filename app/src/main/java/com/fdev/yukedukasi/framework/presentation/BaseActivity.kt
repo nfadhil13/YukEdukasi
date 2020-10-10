@@ -61,6 +61,14 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
                 )
 
             }
+
+            is UIComponentType.TryAgainDialog -> {
+                dialogInView = areYouSureDialog(
+                        message,
+                        uiComponentType.callback
+                )
+
+            }
         }
     }
 
@@ -105,7 +113,16 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
                     )
                 }
             }
+            is UIComponentType.TryAgainDialog -> {
+                response.message?.let{msg->
+                    dialogInView = areYouSureDialog(
+                            msg,
+                            response.uiComponentType.callback,
+                            stateMessageCallback
+                    )
+                }
 
+            }
             is UIComponentType.None -> {
                 stateMessageCallback.removeMessageFromStack()
             }
@@ -139,6 +156,7 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
                             stateMessageCallback = stateMessageCallback
                     )
                 }
+
 
                 else -> {
                     stateMessageCallback.removeMessageFromStack()
@@ -256,6 +274,40 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
                     }
                     cancelable(false)
                 }
+    }
+
+    private fun tryAgainDialog(
+            message: String,
+            callback: AreYouSureCallback,
+            stateMessageCallback: StateMessageCallback? = null
+    ): MaterialDialog {
+        return MaterialDialog(this)
+                .show{
+                    title(R.string.try_again)
+                    message(text = message)
+                    val negativeButton = negativeButton(R.string.text_cancel) {
+                        stateMessageCallback?.removeMessageFromStack()
+                        callback.cancel()
+                        dismiss()
+                    }
+                    positiveButton(R.string.text_yes){
+                        stateMessageCallback?.removeMessageFromStack()
+                        callback.proceed()
+                        dismiss()
+                    }
+                    onDismiss {
+                        dialogInView = null
+                    }
+                    cancelable(false)
+                }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        dialogInView?.let{
+            (dialogInView as MaterialDialog).dismiss()
+            dialogInView = null
+        }
     }
 
 }
