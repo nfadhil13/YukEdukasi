@@ -11,7 +11,7 @@ import com.fdev.yukedukasi.framework.presentation.UIController
 import com.fdev.yukedukasi.framework.presentation.auth.AuthActivity
 import com.fdev.yukedukasi.framework.presentation.auth.AuthViewModel
 
-abstract class MenuBaseFragment  : Fragment(){
+abstract class MainBaseFragment  : Fragment(){
     lateinit var uiController: UIController
 
     lateinit var stateMessageCallback: StateMessageCallback

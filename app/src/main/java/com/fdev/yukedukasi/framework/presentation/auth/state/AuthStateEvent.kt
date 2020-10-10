@@ -3,7 +3,7 @@ package com.fdev.yukedukasi.framework.presentation.auth.state
 import com.fdev.yukedukasi.business.domain.model.User
 import com.fdev.yukedukasi.business.domain.state.StateEvent
 
-sealed class AuthStateEvent : StateEvent {
+sealed class  AuthStateEvent : StateEvent {
 
     class LoginStateEvent(
             var user : User,

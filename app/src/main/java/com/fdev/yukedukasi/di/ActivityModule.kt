@@ -1,5 +1,6 @@
 package com.fdev.yukedukasi.di
 
+import com.fdev.yukedukasi.framework.datasource.network.apicall.services.GameApiService
 import com.fdev.yukedukasi.framework.datasource.network.apicall.services.SiswaApiService
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,15 @@ object ActivityModule {
         return retrofitBuilder
                 .build()
                 .create(SiswaApiService::class.java)
+    }
+
+    @Provides
+    fun provideGameApi(
+            retrofitBuilder: Retrofit.Builder
+    ) : GameApiService {
+        return retrofitBuilder
+                .build()
+                .create(GameApiService::class.java)
     }
 
 }

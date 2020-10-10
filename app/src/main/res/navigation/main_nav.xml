@@ -6,6 +6,6 @@
     app:startDestination="@id/menuFragment">
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.fdev.yukedukasi.framework.presentation.main.MenuFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.main.menu.MenuFragment"
         android:label="MenuFragment" />
 </navigation>
