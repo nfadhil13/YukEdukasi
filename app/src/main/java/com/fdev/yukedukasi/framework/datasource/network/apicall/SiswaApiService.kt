@@ -1,9 +1,7 @@
 package com.fdev.yukedukasi.framework.datasource.network.apicall
 
-import com.fdev.yukedukasi.framework.datasource.network.model.siswa.LoginResponse
-import com.fdev.yukedukasi.framework.datasource.network.model.siswa.SiswaNetworkEntity
-import retrofit2.Call
-import retrofit2.Response
+import com.fdev.yukedukasi.framework.datasource.network.model.ApiResponse
+import com.fdev.yukedukasi.framework.datasource.network.model.siswa.SiswaDataResponse
 import retrofit2.http.*
 
 
@@ -14,6 +12,6 @@ interface SiswaApiService {
     suspend fun login(
             @Field("nis") nis : String,
             @Field("pin") pin : String
-    ) : LoginResponse
+    ) : ApiResponse<SiswaDataResponse>
 
 }

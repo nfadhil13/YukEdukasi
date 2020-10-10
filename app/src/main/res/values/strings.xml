@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">YukEdukasi</string>
+    <string name="login_label">Login</string>
+    <string name="password_label">Password</string>
+    <string name="nis_label">NIS</string>
+    <string name="nis_empty_error">Tolong isi NIS anda</string>
+    <string name="pin_empty_error">Tolong isi PIN anda</string>
 </resources>

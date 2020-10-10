@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.fdev.yukedukasi.databinding.ActivityAuthBinding
 import com.fdev.yukedukasi.framework.presentation.BaseActivity
 import com.fdev.yukedukasi.util.SessionManager
+import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -40,6 +41,8 @@ class AuthActivity : BaseActivity() {
         sessionManager.currentUser.observe(this , Observer { siswa ->
             siswa?.let{
                 // Go to main activity
+                printLogD("AuthActivity" , "LoginSuccess $siswa")
+
             }
         })
     }

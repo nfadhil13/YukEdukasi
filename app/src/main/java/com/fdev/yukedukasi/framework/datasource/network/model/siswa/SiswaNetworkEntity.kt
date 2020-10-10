@@ -3,6 +3,7 @@ package com.fdev.yukedukasi.framework.datasource.network.model.siswa
 
 import com.google.gson.annotations.SerializedName
 
+
 data class SiswaNetworkEntity(
 
     @SerializedName("nama_kelas")

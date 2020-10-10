@@ -90,8 +90,8 @@ dependencies {
     //Retrofit
     implementation Dependencies.retrofit
     implementation Dependencies.gson
-    implementation "com.squareup.okhttp3:okhttp:4.9.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation Dependencies.okhttp
+    implementation Dependencies.okthttp_interceptor
 
 
     //Hilt
@@ -103,6 +103,10 @@ dependencies {
 
     //Leak canary
     implementation Dependencies.leak_canary
+
+
+    // Implementation Material Dialog
+    implementation Dependencies.material_dialog
 
 
 

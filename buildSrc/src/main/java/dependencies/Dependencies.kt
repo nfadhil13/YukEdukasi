@@ -4,7 +4,9 @@ package dependencies
 
 
 object Dependencies {
-
+    val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    val okthttp_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+    val material_dialog = "com.afollestad.material-dialogs:core:${Versions.material_dialog}"
     val gson = "com.squareup.retrofit2:converter-gson:${Versions.retorfit2}"
     val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     val hilt_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_viewmodel}"

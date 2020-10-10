@@ -9,8 +9,13 @@
         android:name="com.fdev.yukedukasi.framework.presentation.auth.SplashFragment"
         android:label="SplashFragment" >
         <action
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_left"
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/auth_nav"
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

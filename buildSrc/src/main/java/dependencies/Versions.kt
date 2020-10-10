@@ -1,7 +1,8 @@
 package dependencies
 
 object Versions {
-    val gson_versions = "2.8.6"
+    val okhttp = "4.9.0"
+    val material_dialog = "3.2.1"
     val hilt_viewmodel = "1.0.0-alpha01"
     val navigation_component = "2.3.0"
     val firebase_crashlyticsGradle_version = "2.1.1"

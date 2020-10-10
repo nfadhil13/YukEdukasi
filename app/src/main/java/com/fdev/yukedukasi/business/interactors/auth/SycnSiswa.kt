@@ -7,13 +7,13 @@ import com.fdev.yukedukasi.business.domain.model.Siswa
 import com.fdev.yukedukasi.business.domain.model.User
 import com.fdev.yukedukasi.business.domain.state.*
 import com.fdev.yukedukasi.framework.presentation.auth.state.AuthViewState
-import com.fdev.yukedukasi.framework.presentation.auth.state.LoginViewState
+import com.fdev.yukedukasi.framework.presentation.auth.state.SplashViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class LogIn
+class SycnSiswa
 @Inject
 constructor(
         private var networkDataSource: SiswaNetworkDataSource
@@ -23,7 +23,7 @@ constructor(
         const val  LOGIN_SUCCESS = "Log in Success"
     }
 
-    fun LogIn(
+    fun syncSiswa(
             user : User,
             stateEvent : StateEvent
     ) : Flow<DataState<AuthViewState>> = flow{
@@ -44,7 +44,7 @@ constructor(
                                 messageType = MessageType.Success()
                         ),
                         data = AuthViewState(
-                                loginViewState = LoginViewState(siswa = resultObj)
+                                splashViewState = SplashViewState(resultObj),
                         ),
                         stateEvent = stateEvent
                 )

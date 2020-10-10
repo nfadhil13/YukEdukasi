@@ -9,7 +9,7 @@ abstract class NetworkResponseHandler <ViewState, Data>(
         private val stateEvent: StateEvent?
 ){
 
-    suspend fun getResult(): DataState<ViewState>? {
+    suspend fun getResult(): DataState<ViewState> {
 
         return when(response){
 
@@ -54,6 +54,6 @@ abstract class NetworkResponseHandler <ViewState, Data>(
         }
     }
 
-    abstract suspend fun handleSuccess(resultObj: Data): DataState<ViewState>?
+    abstract suspend fun handleSuccess(resultObj: Data): DataState<ViewState>
 
 }
