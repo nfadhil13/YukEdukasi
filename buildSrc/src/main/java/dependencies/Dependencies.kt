@@ -4,6 +4,7 @@ package dependencies
 
 
 object Dependencies {
+    val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     val okthttp_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
     val material_dialog = "com.afollestad.material-dialogs:core:${Versions.material_dialog}"

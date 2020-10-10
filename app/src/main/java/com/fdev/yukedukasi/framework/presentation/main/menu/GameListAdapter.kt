@@ -6,19 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.RequestManager
 import com.fdev.yukedukasi.business.domain.model.Game
+import com.fdev.yukedukasi.databinding.GameItemContainerBinding
+import com.fdev.yukedukasi.util.printLogD
 
-class GameListAdapter(private val interaction: Interaction? = null) :
+class GameListAdapter(
+        private val requestManager: RequestManager,
+        private val interaction: Interaction? = null
+) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Game>() {
 
         override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-            TODO("not implemented")
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
-            TODO("not implemented")
+            return oldItem.equals(newItem)
         }
 
     }
@@ -26,15 +32,13 @@ class GameListAdapter(private val interaction: Interaction? = null) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        return GameViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                        R.layout.,
+        val binding = GameItemContainerBinding.inflate(
+                LayoutInflater.from(parent.context),
                         parent,
                         false
-                ),
-                interaction
-        )
+                )
+
+        return GameViewHolder(binding , requestManager, interaction)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -55,20 +59,26 @@ class GameListAdapter(private val interaction: Interaction? = null) :
 
     class GameViewHolder
     constructor(
-            itemView: View,
+            private val binding : GameItemContainerBinding,
+            private val requestManager: RequestManager,
             private val interaction: Interaction?
-    ) : RecyclerView.ViewHolder(itemView) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Game) = with(itemView) {
+        fun bind(item: Game) = with(binding) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            TODO("bind view with data")
+            tvTitle.text = item.gameName
+            requestManager
+                    .load(item.gameIcon)
+                    .into(binding.imageviewIcon)
         }
     }
 
     interface Interaction {
         fun onItemSelected(position: Int, item: Game)
     }
+
+
 }

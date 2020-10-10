@@ -107,8 +107,11 @@ dependencies {
     implementation Dependencies.leak_canary
 
 
-    // Implementation Material Dialog
+    // Material Dialog
     implementation Dependencies.material_dialog
+
+    //Glide
+    implementation Dependencies.glide
 
 
 

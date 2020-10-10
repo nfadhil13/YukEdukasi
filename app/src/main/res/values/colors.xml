@@ -8,4 +8,5 @@
     <color name="orange">#E25B45</color>
     <color name="green">#ADC865</color>
     <color name="menu_background">#ECE5DC</color>
+    <color name="blur">#C6C6C6</color>
 </resources>

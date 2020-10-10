@@ -1,6 +1,7 @@
 package dependencies
 
 object Versions {
+    val glide = "4.11.0"
     val okhttp = "4.9.0"
     val material_dialog = "3.2.1"
     val hilt_viewmodel = "1.0.0-alpha01"

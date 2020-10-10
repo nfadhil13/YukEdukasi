@@ -5,6 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
+import com.fdev.yukedukasi.R
+import com.fdev.yukedukasi.business.domain.model.Game
 import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
 import com.fdev.yukedukasi.databinding.FragmentMenuBinding
 import com.fdev.yukedukasi.framework.presentation.main.MainBaseFragment
@@ -18,15 +24,22 @@ import kotlinx.coroutines.FlowPreview
 @AndroidEntryPoint
 @FlowPreview
 @ExperimentalCoroutinesApi
-class MenuFragment : MainBaseFragment() {
+class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
 
     private var _binding: FragmentMenuBinding? = null
 
     private val binding
         get() = _binding!!
 
+    lateinit var recyclerViewAdapter : GameListAdapter
 
     private val viewModel: MenuViewModel by viewModels()
+
+
+    private var _requestManager : RequestManager? = null
+
+    private val requestManager
+        get() = _requestManager!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +55,25 @@ class MenuFragment : MainBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
+        initUI()
         test()
+    }
+
+    private fun initUI() {
+        initGlide()
+        recyclerViewAdapter = GameListAdapter(
+                requestManager,
+                this
+        )
+
+        binding.apply {
+            menuRecyclerviewContent.apply {
+                val gridLayoutManager = GridLayoutManager(requireContext() , 2)
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                adapter = recyclerViewAdapter
+            }
+        }
     }
 
     private fun test() {
@@ -52,7 +83,7 @@ class MenuFragment : MainBaseFragment() {
     private fun initObserver() {
         viewModel.viewState.observe(viewLifecycleOwner,{viewState->
             viewState.gameList?.let{
-                printLogD("MenuFragment" , "$it")
+                recyclerViewAdapter.submitList(it)
             }
         })
     }
@@ -67,8 +98,23 @@ class MenuFragment : MainBaseFragment() {
 
     }
 
+    private fun initGlide() {
+        val requestOptions = RequestOptions
+                .placeholderOf(R.drawable.blue_header_bg)
+                .error(R.drawable.footer)
+
+            _requestManager = Glide.with(requireActivity())
+                    .applyDefaultRequestOptions(requestOptions)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        binding.menuRecyclerviewContent.adapter = null
         _binding = null
+        _requestManager = null
+    }
+
+    override fun onItemSelected(position: Int, item: Game) {
+
     }
 }
