@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">InstagramClone</string>
+    <string name="app_name">YukEdukasi</string>
+    <string name="login_label">Log in</string>
+    <string name="password_label">Password</string>
+    <string name="nis_label">NIS</string>
+    <string name="nis_empty_error">Tolong isi NIS anda</string>
+    <string name="pin_empty_error">Tolong isi PIN anda</string>
+    <string name="text_ok">OK</string>
+    <string name="info">Informasi</string>
+    <string name="text_error">Error!</string>
+    <string name="text_success">Sukses</string>
+    <string name="are_you_sure">Apakah kamu yakin?</string>
+    <string name="text_cancel">tidak</string>
+    <string name="text_yes">Ya</string>
+    <string name="pin_label">PIN</string>
+    <string name="retry_label">\" coba lagi?\"</string>
+    <string name="try_again">Ulangi Lagi?</string>
 </resources>

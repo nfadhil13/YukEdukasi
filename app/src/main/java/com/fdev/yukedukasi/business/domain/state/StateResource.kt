@@ -6,7 +6,7 @@ data class StateMessage(val response: Response)
 
 data class Response(
         val message: String?,
-        val uiComponentType: UIComponentType,
+        val uiComponentType: UIComponentType = UIComponentType.None(),
         val messageType: MessageType
 )
 
@@ -16,10 +16,14 @@ sealed class UIComponentType{
 
     class Dialog: UIComponentType()
 
-//    class AreYouSureDialog(
-//            val callback: AreYouSureCallback
-//    ): UIComponentType()
-//
+    class AreYouSureDialog(
+            val callback: AreYouSureCallback
+    ): UIComponentType()
+
+    class TryAgainDialog(
+            val callback: AreYouSureCallback
+    ): UIComponentType()
+
     class SnackBar: UIComponentType()
 
     class None: UIComponentType()
@@ -35,3 +39,21 @@ sealed class MessageType{
 
     class None: MessageType()
 }
+
+interface StateMessageCallback{
+
+    fun removeMessageFromStack()
+}
+
+interface AreYouSureCallback {
+
+    fun proceed()
+
+    fun cancel()
+}
+
+interface DialogInputCaptureCallback {
+
+    fun onTextCaptured(text: String)
+}
+

@@ -1,14 +1,13 @@
 package com.fdev.yukedukasi.business.data.util
 
-import com.fdev.yukedukasi.business.data.cache.CacheConstants.CACHE_TIMEOUT
-import com.fdev.yukedukasi.business.data.cache.CacheErrors.CACHE_ERROR_TIMEOUT
-import com.fdev.yukedukasi.business.data.cache.CacheErrors.CACHE_ERROR_UNKNOWN
-import com.fdev.yukedukasi.business.data.cache.CacheResult
+
 import com.fdev.yukedukasi.business.data.network.NetworkConstants.NETWORK_TIMEOUT
 import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_TIMEOUT
 import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_UNKNOWN
 import com.fdev.yukedukasi.business.data.network.NetworkResult
 import com.fdev.yukedukasi.business.data.util.GenericErrors.ERROR_UNKNOWN
+import com.fdev.yukedukasi.util.ApiException
+import com.fdev.yukedukasi.util.printLogD
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
@@ -42,10 +41,21 @@ suspend fun <T> safeApiCall(
                 }
                 is HttpException -> {
                     val code = throwable.code()
-                    val errorResponse = convertErrorBody(throwable)
+                    var errorResponse = convertErrorBody(throwable)
+                    printLogD("safeApiCall" , "ADALAH : $errorResponse ${errorResponse?.contains(
+                            SISWA_NOT_FOUND_ERROR
+                    )}")
+                    errorResponse?.let{
+                        errorResponse = apiErrorMessageExtractor(it)
+                    }
                     NetworkResult.GenericError(
                             code,
                             errorResponse
+                    )
+                }
+                is ApiException -> {
+                    NetworkResult.GenericError(
+                            errorMessage = throwable.message
                     )
                 }
                 else -> {
@@ -59,30 +69,7 @@ suspend fun <T> safeApiCall(
     }
 }
 
-suspend fun <T> safeCacheCall(
-        dispatcher: CoroutineDispatcher,
-        cacheCall: suspend () -> T?
-): CacheResult<T?> {
-    return withContext(dispatcher) {
-        try {
-            // throws TimeoutCancellationException
-            withTimeout(CACHE_TIMEOUT){
-                CacheResult.Success(cacheCall.invoke())
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-            when (throwable) {
 
-                is TimeoutCancellationException -> {
-                    CacheResult.GenericError(CACHE_ERROR_TIMEOUT)
-                }
-                else -> {
-                    CacheResult.GenericError(CACHE_ERROR_UNKNOWN)
-                }
-            }
-        }
-    }
-}
 
 
 private fun convertErrorBody(throwable: HttpException): String? {

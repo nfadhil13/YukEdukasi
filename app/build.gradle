@@ -16,6 +16,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'dagger.hilt.android.plugin'
+
 android {
     compileSdkVersion Versions.compileSDKVersion
     defaultConfig {
@@ -51,6 +53,10 @@ android {
             }
         }
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 
@@ -74,20 +80,36 @@ dependencies {
     //Live data & ViewModel
     implementation Dependencies.liveData
     implementation Dependencies.viewModel
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     kapt AnnotationProcess.lifeCycleAnnotationProcess
 
-
+    //Navigation Component
+    implementation Dependencies.nav_fragment_ktx
+    implementation Dependencies.nav_ui_ktx
 
 
     //Retrofit
     implementation Dependencies.retrofit
+    implementation Dependencies.gson
+    implementation Dependencies.okhttp
+    implementation Dependencies.okthttp_interceptor
 
-    //Dagger
-    implementation Dependencies.dagger2
-    kapt AnnotationProcess.dagger2AnnotationProcess
+
+    //Hilt
+    implementation Dependencies.hilt
+    kapt AnnotationProcess.hiltAnnotationProcess
+    implementation Dependencies.hilt_viewmodel
+    kapt AnnotationProcess.hiltViewModelAnnotationProcess
 
 
     //Leak canary
     implementation Dependencies.leak_canary
+
+
+    // Implementation Material Dialog
+    implementation Dependencies.material_dialog
+
+
 
 }

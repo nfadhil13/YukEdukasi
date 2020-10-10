@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/auth_nav"
+    app:startDestination="@id/splashFragment">
+
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.auth.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_left"
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/auth_nav"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.auth.LoginFragment"
+        android:label="LoginFragment" />
+</navigation>

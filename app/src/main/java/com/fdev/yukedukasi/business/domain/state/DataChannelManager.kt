@@ -56,14 +56,15 @@ abstract class DataChannelManager<ViewState> {
             return false
         }
         // if a dialog is showing, do not allow new StateEvents
-        if(!isMessageStackEmpty()){
+        printLogD("DCM" , "${!isMessageManagerEmpty()}")
+        if(!isMessageManagerEmpty()){
             return false
         }
         return true
     }
 
-    fun isMessageStackEmpty(): Boolean {
-        return messageManager.isStackEmpty()
+    fun isMessageManagerEmpty(): Boolean {
+        return messageManager.isMessageEmpty()
     }
 
     private fun handleNewStateMessage(stateMessage: StateMessage){
@@ -74,20 +75,12 @@ abstract class DataChannelManager<ViewState> {
         messageManager.add(stateMessage)
     }
 
-    fun clearStateMessage(index: Int = 0){
+    fun clearStateMessage(){
         printLogD("DataChannelManager", "clear state message")
         messageManager.removeCurrentMessage()
     }
 
-    fun clearStateMessages() = messageManager.removeCurrentMessage()
 
-    fun printCurrentStateMessages(){
-        printLogD("DCM", "${messageManager.getCurrentMessasge()}")
-
-    }
-
-    // for debugging
-    fun getActiveJobs() = stateEventManager.getActiveJobNames()
 
     fun clearActiveStateEventCounter()
             = stateEventManager.clearActiveStateEventCounter()

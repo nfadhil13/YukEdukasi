@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.android.parcel.IgnoredOnParcel
 
-const val MESSAGE_STACK_BUNDLE_KEY = "com.fdev.cleanarchitecture.business.domain.state"
 
 class MessageManager{
 
@@ -15,26 +14,23 @@ class MessageManager{
     val stateMessage: LiveData<StateMessage?>
         get() = _stateMessage
 
-    fun isStackEmpty(): Boolean{
+    fun isMessageEmpty(): Boolean{
         return stateMessage.value == null
     }
 
 
 
     fun add(newMessage: StateMessage): Boolean {
-        if(isStackEmpty()){
+        if(isMessageEmpty()){
             setStateMessage(newMessage)
             return true
         }
         return false
     }
 
-    fun removeCurrentMessage(): Boolean {
-        if(!isStackEmpty()){
-            setStateMessage(null)
-            return true
-        }
-        return false
+    fun removeCurrentMessage() {
+        setStateMessage(null)
+
     }
 
     fun getCurrentMessasge()  = _stateMessage.value
