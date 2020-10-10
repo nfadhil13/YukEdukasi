@@ -1,6 +1,6 @@
 package com.fdev.yukedukasi.di
 
-import com.fdev.yukedukasi.framework.datasource.network.apicall.SiswaApiService
+import com.fdev.yukedukasi.framework.datasource.network.apicall.services.SiswaApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

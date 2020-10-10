@@ -9,7 +9,7 @@ sealed class AuthStateEvent : StateEvent {
             var user : User,
     ) : AuthStateEvent(){
         override fun errorInfo(): String {
-            return "Error Logging in"
+            return "Gagal Login"
         }
 
         override fun eventName(): String {
@@ -26,7 +26,7 @@ sealed class AuthStateEvent : StateEvent {
             var user : User,
     ) : AuthStateEvent(){
         override fun errorInfo(): String {
-            return "Error Logging in"
+            return "Gagal Login kembali"
         }
 
         override fun eventName(): String {

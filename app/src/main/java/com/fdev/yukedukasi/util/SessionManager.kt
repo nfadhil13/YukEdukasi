@@ -44,6 +44,7 @@ constructor(
     fun login(newSiswa : Siswa){
         prefEditor.putString(USER_NIS_KEY , newSiswa.nis)
         prefEditor.putString(USER_PIN_KEY , newSiswa.pin)
+        prefEditor.apply()
         setValue(newSiswa)
     }
 
@@ -51,14 +52,17 @@ constructor(
     fun logOut(){
         prefEditor.remove(USER_NIS_KEY)
         prefEditor.remove(USER_PIN_KEY)
+        prefEditor.apply()
         setValue(null)
     }
 
     //Check last user login
     fun checkLastUserLogIn() : User?{
         val userNIS = sharedPreferences.getString(USER_NIS_KEY , null)
+        printLogD("SessionManager" , "$userNIS")
         userNIS?.let{
             val userPIN = sharedPreferences.getString(USER_PIN_KEY , null)
+            printLogD("SessionManager" , "$userPIN")
             userPIN?.let{
                 return User(userNIS , userPIN)
             }

@@ -3,10 +3,8 @@ package com.fdev.yukedukasi.framework.datasource.network.implementation
 import com.fdev.yukedukasi.business.domain.model.Siswa
 import com.fdev.yukedukasi.business.domain.model.User
 import com.fdev.yukedukasi.framework.datasource.network.abstraction.SiswaNetworkService
-import com.fdev.yukedukasi.framework.datasource.network.apicall.SiswaApiService
+import com.fdev.yukedukasi.framework.datasource.network.apicall.services.SiswaApiService
 import com.fdev.yukedukasi.framework.datasource.network.mapper.SiswaNetworkMapper
-import com.fdev.yukedukasi.util.ApiException
-import com.fdev.yukedukasi.util.printLogD
 import javax.inject.Inject
 
 class SiswaNetworkServiceImpl
@@ -27,7 +25,7 @@ constructor(
                     it.siswa
             )
 
-        }?: throw ApiException(result.message)
+        }
     }
 
 

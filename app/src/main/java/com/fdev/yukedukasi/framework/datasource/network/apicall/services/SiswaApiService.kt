@@ -1,4 +1,4 @@
-package com.fdev.yukedukasi.framework.datasource.network.apicall
+package com.fdev.yukedukasi.framework.datasource.network.apicall.services
 
 import com.fdev.yukedukasi.framework.datasource.network.model.ApiResponse
 import com.fdev.yukedukasi.framework.datasource.network.model.siswa.SiswaDataResponse

@@ -4,7 +4,6 @@ import com.fdev.yukedukasi.business.data.network.abstraction.SiswaNetworkDataSou
 import com.fdev.yukedukasi.business.domain.model.Siswa
 import com.fdev.yukedukasi.business.domain.model.User
 import com.fdev.yukedukasi.framework.datasource.network.abstraction.SiswaNetworkService
-import com.fdev.yukedukasi.framework.datasource.network.apicall.SiswaApiService
 import javax.inject.Inject
 
 class SiswaNetworkDataSourceImpl

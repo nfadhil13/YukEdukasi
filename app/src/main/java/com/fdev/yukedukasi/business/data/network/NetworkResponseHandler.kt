@@ -16,7 +16,7 @@ abstract class NetworkResponseHandler <ViewState, Data>(
             is NetworkResult.GenericError -> {
                 DataState.error(
                         response = Response(
-                                message = "${stateEvent?.errorInfo()}\n\nReason: ${response.errorMessage.toString()}",
+                                message = "${stateEvent?.errorInfo()}\n\n ${response.errorMessage.toString()}",
                                 uiComponentType = UIComponentType.Dialog(),
                                 messageType = MessageType.Error()
                         ),
@@ -27,7 +27,7 @@ abstract class NetworkResponseHandler <ViewState, Data>(
             is NetworkResult.NetworkError -> {
                 DataState.error(
                         response = Response(
-                                message = "${stateEvent?.errorInfo()}\n\nReason: ${NETWORK_ERROR}",
+                                message = "${stateEvent?.errorInfo()}\n\n ${NETWORK_ERROR}",
                                 uiComponentType = UIComponentType.Dialog(),
                                 messageType = MessageType.Error()
                         ),
@@ -39,7 +39,7 @@ abstract class NetworkResponseHandler <ViewState, Data>(
                 if(response.value == null){
                     DataState.error(
                             response = Response(
-                                    message = "${stateEvent?.errorInfo()}\n\nReason: ${NETWORK_DATA_NULL}.",
+                                    message = "${stateEvent?.errorInfo()}\n\n ${NETWORK_DATA_NULL}.",
                                     uiComponentType = UIComponentType.Dialog(),
                                     messageType = MessageType.Error()
                             ),

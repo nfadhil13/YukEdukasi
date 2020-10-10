@@ -80,6 +80,8 @@ dependencies {
     //Live data & ViewModel
     implementation Dependencies.liveData
     implementation Dependencies.viewModel
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     kapt AnnotationProcess.lifeCycleAnnotationProcess
 
     //Navigation Component

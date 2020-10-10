@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.model.User
+import com.fdev.yukedukasi.business.domain.state.StateMessage
+import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
 import com.fdev.yukedukasi.databinding.FragmentLoginBinding
 import com.fdev.yukedukasi.framework.presentation.auth.state.AuthStateEvent
 import kotlinx.coroutines.ExperimentalCoroutinesApi

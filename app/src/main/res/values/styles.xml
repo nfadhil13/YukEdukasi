@@ -7,5 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
+    <style name="myTextInputLabel" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/nunito_sans</item>
+        <item name="colorControlNormal">@color/orange</item>
+        <item name="colorControlActivated">@color/orange</item>
+    </style>
 </resources>

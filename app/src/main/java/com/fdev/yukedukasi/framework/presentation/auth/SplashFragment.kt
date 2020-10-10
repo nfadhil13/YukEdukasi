@@ -6,26 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.fdev.yukedukasi.R
+import com.fdev.yukedukasi.business.domain.model.Siswa
 import com.fdev.yukedukasi.business.domain.model.User
-import com.fdev.yukedukasi.business.interactors.auth.LogIn
-import com.fdev.yukedukasi.databinding.ActivityAuthBinding
 import com.fdev.yukedukasi.databinding.FragmentSplashBinding
-import com.fdev.yukedukasi.framework.datasource.network.apicall.SiswaApiService
 import com.fdev.yukedukasi.framework.presentation.auth.state.AuthStateEvent
-import com.fdev.yukedukasi.util.SessionManager
-import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -44,9 +33,12 @@ class SplashFragment : AuthBaseFragment() {
 
     private lateinit var fadeAnimation: Animation
 
-    private var hasLogInBefore: Boolean = false
+    private var hasEverRegister : Boolean = false
 
     private var isLoginAttempDone : Boolean = false
+
+
+    private lateinit var currentSiswa : Siswa
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,10 +54,12 @@ class SplashFragment : AuthBaseFragment() {
         checkLastUser()
     }
 
+
+    //Check last user in this phone
     private fun checkLastUser() {
         val lastUser = viewModel.checkLastUserLogIn()
         lastUser?.let { user ->
-            hasLogInBefore = true
+            hasEverRegister = true
             viewModel.setStateEvent(AuthStateEvent
                     .SyncStateEvent(
                             user = user
@@ -85,9 +79,20 @@ class SplashFragment : AuthBaseFragment() {
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                if(!hasLogInBefore || isLoginAttempDone){
-                    navToLogin()
+                //Check if there is user in this phone
+                if(hasEverRegister){
+                    //Doing login attempt to server
+                    if(isLoginAttempDone){
+                        //If login attempt succes than log in
+                        if(::currentSiswa.isInitialized){
+                            login(currentSiswa)
+                        }else{
+                            //If login attempt fail than nav to log in
+                            navToLogin()
+                        }
+                    }
                 }
+
             }
 
             override fun onAnimationRepeat(animation: Animation?) {
@@ -107,12 +112,20 @@ class SplashFragment : AuthBaseFragment() {
     private fun initObserver() {
         viewModel.viewState.observe(viewLifecycleOwner, { viewState ->
             viewState.splashViewState?.let { splashViewState ->
-                isLoginAttempDone = true
                 splashViewState.siswa?.let { siswa ->
-                    viewModel.sessionManager.login(newSiswa = siswa)
+                   if(fadeAnimation.hasEnded()){
+                       login(siswa)
+                   }else{
+                       currentSiswa = siswa
+                   }
+                    isLoginAttempDone = true
                 } ?: if (fadeAnimation.hasEnded()) navToLogin()
             }
         })
+    }
+
+    private fun login(siswa : Siswa){
+        viewModel.sessionManager.login(newSiswa = siswa)
     }
 
     private fun navToLogin() {

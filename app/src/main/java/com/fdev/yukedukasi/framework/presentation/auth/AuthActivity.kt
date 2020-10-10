@@ -1,9 +1,12 @@
 package com.fdev.yukedukasi.framework.presentation.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.fdev.yukedukasi.databinding.ActivityAuthBinding
 import com.fdev.yukedukasi.framework.presentation.BaseActivity
+import com.fdev.yukedukasi.framework.presentation.main.MainActivity
+import com.fdev.yukedukasi.framework.presentation.show
 import com.fdev.yukedukasi.util.SessionManager
 import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,15 +44,24 @@ class AuthActivity : BaseActivity() {
         sessionManager.currentUser.observe(this , Observer { siswa ->
             siswa?.let{
                 // Go to main activity
-                printLogD("AuthActivity" , "LoginSuccess $siswa")
+                goToMainActivity()
 
             }
         })
     }
 
+    private fun goToMainActivity() {
+        val intent = Intent(this , MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun displayProgressBar(isDisplayed: Boolean) {
+        binding.mainProgressbar.show(isDisplayed)
     }
 }
