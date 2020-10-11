@@ -80,7 +80,6 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
             menuRecyclerviewContent.apply {
                 val gridLayoutManager = GridLayoutManager(requireContext() , 2)
                 layoutManager = gridLayoutManager
-                setHasFixedSize(true)
                 adapter = recyclerViewAdapter
             }
         }

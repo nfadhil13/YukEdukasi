@@ -23,6 +23,7 @@ import com.fdev.yukedukasi.framework.presentation.main.MainBaseFragment
 import com.fdev.yukedukasi.framework.presentation.main.materi.state.MateriStateEvent
 import com.fdev.yukedukasi.framework.presentation.main.menu.MenuFragment
 import com.fdev.yukedukasi.util.OneTimePlayerManager
+import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Default
@@ -103,7 +104,6 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
             recyclerView.apply {
                 val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 layoutManager = linearLayoutManager
-                setHasFixedSize(true)
                 adapter = materiListAdapter
             }
             imageviewPlaysound.setOnClickListener {
@@ -114,6 +114,7 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
 
     private fun initObserver() {
         viewModel.viewState.observe(viewLifecycleOwner, { viewState ->
+            printLogD("MateriFragment" , "There is view state $viewState")
             viewState.currentGame?.gameMateri?.let {
                 changeCurrentSelectedMateri(it[0])
                 player.prepareMusic(it[0].sound)
