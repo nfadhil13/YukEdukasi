@@ -12,6 +12,8 @@ import com.fdev.yukedukasi.framework.presentation.auth.AuthActivity
 import com.fdev.yukedukasi.framework.presentation.auth.AuthViewModel
 
 abstract class MainBaseFragment  : Fragment(){
+
+
     lateinit var uiController: UIController
 
     lateinit var stateMessageCallback: StateMessageCallback
@@ -19,9 +21,6 @@ abstract class MainBaseFragment  : Fragment(){
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,7 +29,7 @@ abstract class MainBaseFragment  : Fragment(){
 
     private fun setUIController(activityContext : Context) {
         activity?.let{
-            if(it is AuthActivity){
+            if(it is MainActivity){
                 try{
                     uiController = activityContext as UIController
                 }catch (e : ClassCastException){

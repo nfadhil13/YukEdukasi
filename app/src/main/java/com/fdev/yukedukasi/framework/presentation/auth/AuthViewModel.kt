@@ -89,6 +89,13 @@ constructor(
         setViewState(update)
     }
 
+    fun setLoginField(nis : String , pin : String){
+        setLoginViewState(LoginViewState(
+                nis = nis,
+                pin = pin
+        ))
+    }
+
     override fun initNewViewState(): AuthViewState = AuthViewState()
 
 }

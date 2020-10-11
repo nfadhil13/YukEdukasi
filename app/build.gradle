@@ -113,6 +113,8 @@ dependencies {
     //Glide
     implementation Dependencies.glide
 
+    //Exoplayer
+    implementation Dependencies.exoPlayer
 
 
 }

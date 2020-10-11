@@ -1,21 +1,30 @@
 package com.fdev.yukedukasi.framework.datasource.network.implementation
 
 import com.fdev.yukedukasi.business.domain.model.Game
+import com.fdev.yukedukasi.business.domain.model.Materi
 import com.fdev.yukedukasi.framework.datasource.network.abstraction.GameNetworkService
 import com.fdev.yukedukasi.framework.datasource.network.apicall.services.GameApiService
 import com.fdev.yukedukasi.framework.datasource.network.mapper.GameNetworkMapper
+import com.fdev.yukedukasi.framework.datasource.network.mapper.MateriNetworkMapper
 import javax.inject.Inject
 
 class GameNetworkServiceImpl
 @Inject
 constructor(
         private val gameApiService: GameApiService,
-        private val gameNetworkMapper: GameNetworkMapper
+        private val gameNetworkMapper: GameNetworkMapper,
+        private val materiNetworkMapper : MateriNetworkMapper
 ) : GameNetworkService{
 
-    override suspend fun getAllGames(): List<Game> {
+    override suspend fun getAllGamesCategories(): List<Game> {
         return gameNetworkMapper.mapDomainListToEntityList(
-                gameApiService.getAll().data.games
+                gameApiService.getAllGamesCategories().data.games
+        )
+    }
+
+    override suspend fun getGameMateri(id: Int): List<Materi> {
+        return materiNetworkMapper.mapDomainListToEntityList(
+                gameApiService.getGamesMateri(id.toString()).data.materiNetworkEntity
         )
     }
 

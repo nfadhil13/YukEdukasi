@@ -15,16 +15,16 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class LoginFragment : AuthBaseFragment(){
+class LoginFragment : AuthBaseFragment() {
 
-    private var _binding : FragmentLoginBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
     private val binding
-    get() = _binding!!
+        get() = _binding!!
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentLoginBinding.inflate(layoutInflater , container ,false)
+        _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         val view = binding.root
         return view
     }
@@ -39,9 +39,9 @@ class LoginFragment : AuthBaseFragment(){
         binding.apply {
 
             btnLogin.setOnClickListener {
-               validateInput()?.let{ user ->
-                   login(user)
-               }
+                validateInput()?.let { user ->
+                    login(user)
+                }
 
             }
         }
@@ -51,20 +51,20 @@ class LoginFragment : AuthBaseFragment(){
         viewModel.setStateEvent(AuthStateEvent.LoginStateEvent(user))
     }
 
-    private fun validateInput() : User?{
-        var user : User? = null
+    private fun validateInput(): User? {
+        var user: User? = null
         binding.apply {
-            textInputNis.editText?.let{nisEditText ->
-                if(nisEditText.text.isEmpty()){
+            textInputNis.editText?.let { nisEditText ->
+                if (nisEditText.text.isEmpty()) {
                     textInputNis.error = getString(R.string.nis_empty_error)
-                }else{
+                } else {
                     textInputNis.error = null
-                    textInputPin.editText?.let{pinEditText ->
-                        if(pinEditText.text.isEmpty()){
+                    textInputPin.editText?.let { pinEditText ->
+                        if (pinEditText.text.isEmpty()) {
                             textInputPin.error = getString(R.string.pin_empty_error)
-                        }else{
+                        } else {
                             textInputNis.error = null
-                            user = User(nisEditText.text.toString() , pinEditText.text.toString())
+                            user = User(nisEditText.text.toString(), pinEditText.text.toString())
                         }
                     }
                 }
@@ -74,20 +74,37 @@ class LoginFragment : AuthBaseFragment(){
     }
 
 
-
     private fun initObserver() {
-        viewModel.viewState.observe(viewLifecycleOwner , { viewState->
-            viewState.loginViewState?.siswa?.let { siswa ->
-                viewModel.logIn(siswa)
+        viewModel.viewState.observe(viewLifecycleOwner, { viewState ->
+            viewState.loginViewState?.let {loginViewState->
+                loginViewState.siswa?.let { siswa ->
+                    viewModel.logIn(siswa)
+                }
+
+                setEditTextView(loginViewState.nis , loginViewState.pin)
+
             }
+
         })
     }
 
+    private fun setEditTextView(nis : String, pin: String) {
+        binding.textInputNis.editText?.setText(nis)
+        binding.textInputPin.editText?.setText(pin)
+    }
 
 
     override fun onDestroy() {
         super.onDestroy()
+        saveAuthViewState()
         _binding = null
+    }
+
+    private fun saveAuthViewState() {
+        viewModel.setLoginField(
+                binding.textInputNis.editText?.text.toString(),
+                binding.textInputPin.editText?.text.toString()
+        )
     }
 
 }

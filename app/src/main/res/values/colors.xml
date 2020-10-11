@@ -4,9 +4,12 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
 
+
+    <color name="materi_background">#D9E3DF</color>
     <color name="black">#000000</color>
     <color name="orange">#E25B45</color>
     <color name="green">#ADC865</color>
     <color name="menu_background">#ECE5DC</color>
     <color name="blur">#C6C6C6</color>
+    <color name="materi_textview_color">#ECCF5A</color>
 </resources>

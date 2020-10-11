@@ -20,7 +20,7 @@ constructor(
                 nis = user.nis,
                 pin = user.pin
         )
-        return result.data?.let{
+        return result.data.let{
             siswaNetworkMapper.mapDomainToEntity(
                     it.siswa
             )

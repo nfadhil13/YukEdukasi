@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.model.Game
@@ -21,10 +24,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
 
+
+
+
 @AndroidEntryPoint
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
+
+    companion object{
+        const val GAME_BUNDLE_KEY = "framework.presentation.main.menu.menufragment.bundle_key"
+    }
 
     private var _binding: FragmentMenuBinding? = null
 
@@ -86,6 +96,10 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
                 recyclerViewAdapter.submitList(it)
             }
         })
+
+        viewModel.shouldDisplayProgressBar.observe(viewLifecycleOwner , {
+            uiController.displayProgressBar(it)
+        })
     }
 
     override fun initStateMessageCallback() {
@@ -99,22 +113,18 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
     }
 
     private fun initGlide() {
-        val requestOptions = RequestOptions
-                .placeholderOf(R.drawable.blue_header_bg)
-                .error(R.drawable.footer)
-
             _requestManager = Glide.with(requireActivity())
-                    .applyDefaultRequestOptions(requestOptions)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.menuRecyclerviewContent.adapter = null
+        _binding?.menuRecyclerviewContent?.adapter = null
         _binding = null
         _requestManager = null
     }
 
     override fun onItemSelected(position: Int, item: Game) {
-
+        val bundle = bundleOf(GAME_BUNDLE_KEY to item)
+        findNavController().navigate(R.id.action_menuFragment_to_materiFragment , bundle)
     }
 }

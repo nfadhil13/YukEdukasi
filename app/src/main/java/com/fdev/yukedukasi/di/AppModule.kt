@@ -63,11 +63,11 @@ object AppModule {
     @Singleton
     @Provides
     fun provideOkHttpCliendHeader(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS )
-
-        val bodyIntreceptor = HttpLoggingInterceptor()
-        bodyIntreceptor.setLevel(HttpLoggingInterceptor.Level.BODY )
+//        val interceptor = HttpLoggingInterceptor()
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS )
+//
+//        val bodyIntreceptor = HttpLoggingInterceptor()
+//        bodyIntreceptor.setLevel(HttpLoggingInterceptor.Level.BODY )
 
         return OkHttpClient.Builder().apply {
             addInterceptor(
@@ -77,8 +77,8 @@ object AppModule {
                         return@Interceptor chain.proceed(builder.build())
                     }
             )
-            addNetworkInterceptor(interceptor)
-            addNetworkInterceptor(bodyIntreceptor)
+//            addNetworkInterceptor(interceptor)
+//            addNetworkInterceptor(bodyIntreceptor)
         }.build()
     }
 

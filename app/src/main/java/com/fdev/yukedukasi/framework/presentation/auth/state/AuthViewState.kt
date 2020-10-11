@@ -23,5 +23,7 @@ data class SplashViewState(
 @Parcelize
 data class LoginViewState(
         var siswa : Siswa?  = null,
-        var user : User? = null
+        var user : User? = null,
+        var nis : String = "",
+        var pin : String = ""
 ) : Parcelable

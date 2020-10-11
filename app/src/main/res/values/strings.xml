@@ -15,4 +15,5 @@
     <string name="pin_label">PIN</string>
     <string name="retry_label">\" coba lagi?\"</string>
     <string name="try_again">Ulangi Lagi?</string>
+    <string name="change_fragment_fail_message">Gagal melakukan loading Data</string>
 </resources>

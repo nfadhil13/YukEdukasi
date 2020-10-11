@@ -26,7 +26,7 @@ constructor(
     ) : Flow<DataState<MenuViewState>> = flow{
 
         val networkCall = safeApiCall(IO){
-            gameNetworkDataSource.getAllGames()
+            gameNetworkDataSource.getAllGamesCategories()
         }
 
         val result = object : NetworkResponseHandler<MenuViewState, List<Game>>(

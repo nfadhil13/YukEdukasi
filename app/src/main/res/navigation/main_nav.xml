@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.fdev.yukedukasi.framework.presentation.main.menu.MenuFragment"
-        android:label="MenuFragment" />
+        android:label="MenuFragment" >
+        <action
+            android:id="@+id/action_menuFragment_to_materiFragment"
+            app:destination="@id/materiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/materiFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.main.materi.MateriFragment"
+        android:label="MateriFragment" />
 </navigation>

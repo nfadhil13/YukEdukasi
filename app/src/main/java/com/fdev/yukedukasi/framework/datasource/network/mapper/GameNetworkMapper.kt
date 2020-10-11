@@ -11,18 +11,18 @@ constructor() : EntityMapper<Game,GameNetworkEntity>(){
     override fun mapDomainToEntity(domain: GameNetworkEntity): Game {
         return Game(
                 id = domain.gamesId.toInt(),
-                gameName =  domain.namaGames,
-                gameIcon = domain.iconGames,
-                gameSound = domain.questionSound
+                name =  domain.namaGames,
+                image = domain.iconGames,
+                sound = domain.questionSound
         )
     }
 
     override fun mapEntityToDomain(entity: Game): GameNetworkEntity {
         return GameNetworkEntity(
                 gamesId = entity.id.toString(),
-                iconGames = entity.gameIcon,
-                namaGames = entity.gameName,
-                questionSound = entity.gameSound
+                iconGames = entity.image,
+                namaGames = entity.name,
+                questionSound = entity.sound
         )
     }
 
