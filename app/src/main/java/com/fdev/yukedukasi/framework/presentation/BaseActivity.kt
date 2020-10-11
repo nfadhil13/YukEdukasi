@@ -21,6 +21,8 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
+
+
     private fun getRootView(): View {
         val contentViewGroup: ViewGroup? = findViewById(android.R.id.content) as ViewGroup
 
@@ -34,6 +36,10 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
             rootView = window.decorView.rootView
 
         return rootView ?: throw Exception("Failed to get root view")
+    }
+
+    override fun displayProgressBar(isDisplayed: Boolean) {
+
     }
 
     override fun basicUIInteraction(

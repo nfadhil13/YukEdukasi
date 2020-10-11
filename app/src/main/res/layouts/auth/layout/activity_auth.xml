@@ -18,7 +18,8 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/auth_nav" />
 
-    <ProgressBar
+    <ProgreBar
+        android:theme="@style/progressbar"
         android:id="@+id/main_progressbar"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"

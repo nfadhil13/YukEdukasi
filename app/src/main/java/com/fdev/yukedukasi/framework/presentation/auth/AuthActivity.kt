@@ -62,6 +62,7 @@ class AuthActivity : BaseActivity() {
     }
 
     override fun displayProgressBar(isDisplayed: Boolean) {
+        printLogD("AuthActivity", "boolean : $isDisplayed")
         binding.mainProgressbar.show(isDisplayed)
     }
 }

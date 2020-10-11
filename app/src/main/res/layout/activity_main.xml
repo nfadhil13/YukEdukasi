@@ -19,6 +19,7 @@
         app:navGraph="@navigation/main_nav" />
 
     <ProgressBar
+        android:theme="@style/progressbar"
         android:id="@+id/main_progressbar"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"

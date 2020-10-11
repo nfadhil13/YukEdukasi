@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.fdev.yukedukasi.business.domain.state.StateMessage
 import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
 import com.fdev.yukedukasi.framework.presentation.UIController
+import com.fdev.yukedukasi.util.printLogD
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -62,6 +63,7 @@ abstract class AuthBaseFragment : Fragment(){
 
     private fun subcribeObserver() {
         viewModel.shouldDisplayProgressBar.observe(viewLifecycleOwner , Observer {
+            printLogD("AuthBaseFragment" , "boolean  : $it" )
             uiController.displayProgressBar(it)
         })
 
