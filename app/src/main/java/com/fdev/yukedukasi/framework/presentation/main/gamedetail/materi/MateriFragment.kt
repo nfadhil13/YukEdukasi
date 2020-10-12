@@ -1,4 +1,4 @@
-package com.fdev.yukedukasi.framework.presentation.main.materi
+package com.fdev.yukedukasi.framework.presentation.main.gamedetail.materi
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.model.Game
 import com.fdev.yukedukasi.business.domain.model.Materi
@@ -20,22 +17,21 @@ import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
 import com.fdev.yukedukasi.business.domain.state.UIComponentType
 import com.fdev.yukedukasi.databinding.FragmentMateriBinding
 import com.fdev.yukedukasi.framework.presentation.main.MainBaseFragment
-import com.fdev.yukedukasi.framework.presentation.main.materi.state.MateriStateEvent
+import com.fdev.yukedukasi.framework.presentation.main.gamedetail.GameDetailBaseFragment
+import com.fdev.yukedukasi.framework.presentation.main.gamedetail.GameDetailViewModel
+import com.fdev.yukedukasi.framework.presentation.main.gamedetail.state.GameDetailStateEvent
 import com.fdev.yukedukasi.framework.presentation.main.menu.MenuFragment
 import com.fdev.yukedukasi.util.OneTimePlayerManager
 import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.launch
 
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
+class MateriFragment : GameDetailBaseFragment(), MaterListAdapter.Interaction {
 
 
     private var _binding: FragmentMateriBinding? = null
@@ -43,20 +39,17 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
     private val binding
         get() = _binding!!
 
-    private val viewModel: MateriViewModel by viewModels()
 
+    private var _materiListAdapter: MaterListAdapter? = null
 
-    private var _requestManager: RequestManager? = null
-
-    private val requestManager
-        get() = _requestManager!!
-
-    private lateinit var materiListAdapter: MaterListAdapter
+    private val materiListAdapter
+        get() = _materiListAdapter!!
 
 
     private lateinit var player: OneTimePlayerManager
 
-    private lateinit var currentMateri: Materi
+    private lateinit var currentMateri : Materi
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,16 +60,13 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.get(MenuFragment.GAME_BUNDLE_KEY)?.let {
-            if (it is Game) {
-                initPlayer()
-                initObserver()
-                initUI()
-                getMateri(it)
-            } else {
-                showErrorMessage()
-            }
-        } ?: showErrorMessage()
+        initPlayer()
+        initObserver()
+        initUI()
+        viewModel.getCurrentGame()?.let{currentGame ->
+            printLogD("MateriFragment","$currentGame")
+            getMateri(currentGame)
+        }
 
     }
 
@@ -91,12 +81,13 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
     }
 
     private fun getMateri(game: Game) {
-        viewModel.setStateEvent(MateriStateEvent.GetMateriOfGame(game))
+        viewModel.setStateEvent(GameDetailStateEvent.GetMateriOfGame(game))
+        printLogD("MateriFragment","retrieve dat")
     }
 
     private fun initUI() {
         initGlide()
-        materiListAdapter = MaterListAdapter(
+        _materiListAdapter = MaterListAdapter(
                 requestManager,
                 this
         )
@@ -115,15 +106,15 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
     private fun initObserver() {
         viewModel.viewState.observe(viewLifecycleOwner, { viewState ->
             printLogD("MateriFragment" , "There is view state $viewState")
-            viewState.currentGame?.gameMateri?.let {
-                changeCurrentSelectedMateri(it[0])
-                player.prepareMusic(it[0].sound)
-                materiListAdapter.submitList(it)
-            }
-        })
+            viewState.materiViewState?.let{ materiViewState ->
+                materiViewState.currentMateri?.let{
+                    changeCurrentSelectedMateri(it)
+                }
+                materiViewState.materiList.let{
+                    materiListAdapter.submitList(it)
+                }
 
-        viewModel.shouldDisplayProgressBar.observe(viewLifecycleOwner, {
-            uiController.displayProgressBar(it)
+            }
         })
 
     }
@@ -140,24 +131,26 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.ic_round_error_outline_24)
                 .into(binding.imageviewSelectedMateri)
+        player.prepareMusic(materi.sound)
     }
 
-    override fun initStateMessageCallback() {
-        stateMessageCallback = object : StateMessageCallback {
-            override fun removeMessageFromStack() {
-                viewModel.clearAllStateMessages()
-            }
 
-        }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        saveMateriState()
+        _binding?.recyclerView?.adapter = null
+        _binding = null
     }
 
+    private fun saveMateriState() {
+        viewModel.setCurrentMateri(currentMateri)
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         player.releasePlayer()
-        _requestManager = null
-        _binding?.recyclerView?.adapter = null
-        _binding = null
+        _materiListAdapter = null
     }
 
 
@@ -167,13 +160,10 @@ class MateriFragment : MainBaseFragment(), MaterListAdapter.Interaction {
     }
 
 
-    private fun initGlide() {
-        _requestManager = Glide.with(requireActivity())
-    }
+
 
     override fun onItemSelected(position: Int, item: Materi) {
         changeCurrentSelectedMateri(item)
-        player.prepareMusic(item.sound)
     }
 
 }

@@ -14,7 +14,7 @@ fun TextView.changeTextcolor(
     }
 }
 
-fun ProgressBar.show(isShow : Boolean){
+fun View.show(isShow : Boolean){
     if(isShow){
         visibility = View.VISIBLE
     }else{

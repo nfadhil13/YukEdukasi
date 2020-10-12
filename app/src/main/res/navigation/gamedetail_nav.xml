@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/gamedetail_nav"
+    app:startDestination="@id/modeChoiceFragment">
+
+    <fragment
+        android:id="@+id/modeChoiceFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.main.gamedetail.modechoice.ModeChoiceFragment"
+        android:label="ModeChoiceFragment" >
+        <action
+            android:id="@+id/action_modeChoiceFragment_to_testFragment"
+            app:destination="@id/testFragment" />
+        <action
+            android:id="@+id/action_modeChoiceFragment_to_materiFragment"
+            app:destination="@id/materiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.main.gamedetail.test.TestFragment"
+        android:label="TestFragment" />
+    <fragment
+        android:id="@+id/materiFragment"
+        android:name="com.fdev.yukedukasi.framework.presentation.main.gamedetail.materi.MateriFragment"
+        android:label="MateriFragment" />
+</navigation>

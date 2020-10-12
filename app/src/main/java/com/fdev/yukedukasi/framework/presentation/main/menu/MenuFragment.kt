@@ -8,17 +8,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.model.Game
 import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
 import com.fdev.yukedukasi.databinding.FragmentMenuBinding
 import com.fdev.yukedukasi.framework.presentation.main.MainBaseFragment
 import com.fdev.yukedukasi.framework.presentation.main.menu.state.MenuStateEvent
-import com.fdev.yukedukasi.util.printLogD
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -41,7 +39,10 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
     private val binding
         get() = _binding!!
 
-    lateinit var recyclerViewAdapter : GameListAdapter
+    private var _recyclerViewAdapter : GameListAdapter? = null
+
+    private val recyclerViewAdapter
+        get() = _recyclerViewAdapter!!
 
     private val viewModel: MenuViewModel by viewModels()
 
@@ -66,26 +67,26 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
         initUI()
-        test()
     }
 
     private fun initUI() {
         initGlide()
-        recyclerViewAdapter = GameListAdapter(
+        _recyclerViewAdapter = GameListAdapter(
                 requestManager,
                 this
         )
 
         binding.apply {
             menuRecyclerviewContent.apply {
-                val gridLayoutManager = GridLayoutManager(requireContext() , 2)
-                layoutManager = gridLayoutManager
+                val linearlayout = LinearLayoutManager(requireContext())
+                layoutManager = linearlayout
                 adapter = recyclerViewAdapter
             }
         }
+        getAllGame()
     }
 
-    private fun test() {
+    private fun getAllGame() {
         viewModel.setStateEvent(MenuStateEvent.GetAllGames())
     }
 
@@ -99,6 +100,13 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
         viewModel.shouldDisplayProgressBar.observe(viewLifecycleOwner , {
             uiController.displayProgressBar(it)
         })
+
+        viewModel.stateMessage.observe(viewLifecycleOwner , {
+            it?.let{
+                handleStateMessage(it , stateMessageCallback)
+            }
+
+        })
     }
 
     override fun initStateMessageCallback() {
@@ -111,19 +119,27 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
 
     }
 
+
     private fun initGlide() {
             _requestManager = Glide.with(requireActivity())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding?.menuRecyclerviewContent?.adapter = null
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         _requestManager = null
+        _recyclerViewAdapter = null
+
+
     }
 
     override fun onItemSelected(position: Int, item: Game) {
         val bundle = bundleOf(GAME_BUNDLE_KEY to item)
-        findNavController().navigate(R.id.action_menuFragment_to_materiFragment , bundle)
+        findNavController().navigate(R.id.action_menuFragment_to_gamedetail_nav , bundle)
     }
 }

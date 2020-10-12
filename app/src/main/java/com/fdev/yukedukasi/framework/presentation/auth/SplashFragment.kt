@@ -166,10 +166,9 @@ class SplashFragment : AuthBaseFragment() {
         topAnimation.cancel()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
-
     }
 
 }

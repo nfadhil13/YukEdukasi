@@ -93,12 +93,12 @@ class LoginFragment : AuthBaseFragment() {
         binding.textInputPin.editText?.setText(pin)
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         saveAuthViewState()
         _binding = null
     }
+
 
     private fun saveAuthViewState() {
         viewModel.setLoginField(

@@ -16,4 +16,7 @@
     <string name="retry_label">\" coba lagi?\"</string>
     <string name="try_again">Ulangi Lagi?</string>
     <string name="change_fragment_fail_message">Gagal melakukan loading Data</string>
+    <string name="menu_label">Menu</string>
+    <string name="test_label">Test</string>
+    <string name="materi_label">Materi</string>
 </resources>

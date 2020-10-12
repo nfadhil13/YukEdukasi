@@ -6,4 +6,5 @@ object NetworkConstants {
     const val BASE_URL : String = "https://outsource.bogordeveloper.com/yasser_games/api/"
     const val FILE_BASE_URL : String = "https://outsource.bogordeveloper.com/yasser_games/uploads/games_materi/"
     const val GAMES_ID_FILTER : String = "games_id"
+    const val GAMES_TEST_FILTER : String = "games_test.games_id"
 }

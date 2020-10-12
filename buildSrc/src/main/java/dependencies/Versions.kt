@@ -7,8 +7,6 @@ object Versions {
     val material_dialog = "3.2.1"
     val hilt_viewmodel = "1.0.0-alpha01"
     val navigation_component = "2.3.0"
-    val firebase_crashlyticsGradle_version = "2.1.1"
-    val google_services_version = "4.3.3"
     val retorfit2 = "2.9.0"
     val ktx = "1.3.1"
     val swipeRefreshLayout = "1.1.0-alpha03"

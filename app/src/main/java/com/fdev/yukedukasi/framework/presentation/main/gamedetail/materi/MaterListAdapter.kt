@@ -1,8 +1,7 @@
-package com.fdev.yukedukasi.framework.presentation.main.materi
+package com.fdev.yukedukasi.framework.presentation.main.gamedetail.materi
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -21,11 +20,11 @@ class MaterListAdapter(
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Materi>() {
 
         override fun areItemsTheSame(oldItem: Materi, newItem: Materi): Boolean {
-            TODO("not implemented")
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Materi, newItem: Materi): Boolean {
-            TODO("not implemented")
+            return oldItem.image.equals(newItem.image)
         }
 
     }

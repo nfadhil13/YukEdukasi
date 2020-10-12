@@ -42,13 +42,15 @@ abstract class MainBaseFragment  : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initStateMessageCallback()
-        subcribeObserver()
     }
 
     abstract fun initStateMessageCallback()
 
-    private fun subcribeObserver() {
-
+    open fun handleStateMessage(stateMessage: StateMessage, stateMessageCallback: StateMessageCallback){
+        uiController.onResponseReceived(
+                stateMessage.response,
+                stateMessageCallback
+        )
     }
 
 

@@ -3,6 +3,7 @@ package com.fdev.yukedukasi.business.data.network.implementation
 import com.fdev.yukedukasi.business.data.network.abstraction.GameNetworkDataSource
 import com.fdev.yukedukasi.business.domain.model.Game
 import com.fdev.yukedukasi.business.domain.model.Materi
+import com.fdev.yukedukasi.business.domain.model.Soal
 import com.fdev.yukedukasi.framework.datasource.network.abstraction.GameNetworkService
 import javax.inject.Inject
 
@@ -17,5 +18,8 @@ constructor(
 
     override suspend fun getGameMateri(gameId : Int): List<Materi>
             = gameNetworkService.getGameMateri(gameId)
+
+    override suspend fun getGameSoal(gameId: Int): List<Soal>
+            = gameNetworkService.getGameSoal(gameId)
 
 }

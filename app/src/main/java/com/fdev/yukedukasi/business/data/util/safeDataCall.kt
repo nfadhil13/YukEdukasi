@@ -6,7 +6,6 @@ import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_TIM
 import com.fdev.yukedukasi.business.data.network.NetworkErrors.NETWORK_ERROR_UNKNOWN
 import com.fdev.yukedukasi.business.data.network.NetworkResult
 import com.fdev.yukedukasi.business.data.util.GenericErrors.ERROR_UNKNOWN
-import com.fdev.yukedukasi.util.ApiException
 import com.fdev.yukedukasi.util.printLogD
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
@@ -42,20 +41,12 @@ suspend fun <T> safeApiCall(
                 is HttpException -> {
                     val code = throwable.code()
                     var errorResponse = convertErrorBody(throwable)
-                    printLogD("safeApiCall" , "ADALAH : $errorResponse ${errorResponse?.contains(
-                            SISWA_NOT_FOUND_ERROR
-                    )}")
                     errorResponse?.let{
                         errorResponse = apiErrorMessageExtractor(it)
                     }
                     NetworkResult.GenericError(
                             code,
                             errorResponse
-                    )
-                }
-                is ApiException -> {
-                    NetworkResult.GenericError(
-                            errorMessage = throwable.message
                     )
                 }
                 else -> {
