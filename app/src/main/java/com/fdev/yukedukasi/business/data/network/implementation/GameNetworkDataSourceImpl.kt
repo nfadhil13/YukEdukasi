@@ -22,4 +22,13 @@ constructor(
     override suspend fun getGameSoal(gameId: Int): List<Soal>
             = gameNetworkService.getGameSoal(gameId)
 
+    override suspend fun getSessionId(siswaId: Int, gamesId: Int): Int
+            = gameNetworkService.getSessionId(siswaId , gamesId)
+
+    override suspend fun updatSessionScore(sessionId: Int, score: Int)
+            = gameNetworkService.updateSessionScore(sessionId , score)
+
+    override suspend fun updateAnswer(sessionId: Int, gameTestId: Int, answerId: Int)
+            = gameNetworkService.updateAnswer(sessionId , gameTestId , answerId)
+
 }

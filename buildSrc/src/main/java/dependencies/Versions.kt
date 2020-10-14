@@ -1,6 +1,8 @@
 package dependencies
 
 object Versions {
+    val motion_toast = "1.3.3.1"
+    val viewpager = "1.1.0-alpha01"
     val exoplayer = "2.12.0"
     val glide = "4.11.0"
     val okhttp = "4.9.0"
@@ -10,7 +12,7 @@ object Versions {
     val retorfit2 = "2.9.0"
     val ktx = "1.3.1"
     val swipeRefreshLayout = "1.1.0-alpha03"
-    val google_material = "1.1.0"
+    val google_material = "1.2.1"
     val constraintLayout = "2.0.1"
     val appCompat = "1.2.0"
     val gradle = "4.0.1"

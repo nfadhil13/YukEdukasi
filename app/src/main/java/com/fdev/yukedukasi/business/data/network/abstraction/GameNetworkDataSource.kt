@@ -13,4 +13,10 @@ interface GameNetworkDataSource {
 
     suspend fun getGameSoal(gameId : Int) : List<Soal>
 
+    suspend fun getSessionId(siswaId : Int , gamesId : Int) : Int
+
+    suspend fun updatSessionScore(sessionId : Int , score : Int)
+
+    suspend fun updateAnswer(sessionId: Int , gameTestId : Int , answerId : Int)
+
 }

@@ -4,6 +4,8 @@ package dependencies
 
 
 object Dependencies {
+
+    val viewPager = "androidx.viewpager2:viewpager2:${Versions.viewpager}"
     val exoPlayer = "com.google.android.exoplayer:exoplayer:${Versions.exoplayer}"
     val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
@@ -27,5 +29,6 @@ object Dependencies {
     val google_material = "com.google.android.material:material:${Versions.google_material}"
     val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retorfit2}"
+    val motion_tost = "com.github.Spikeysanju:MotionToast:${Versions.motion_toast}"
 
 }

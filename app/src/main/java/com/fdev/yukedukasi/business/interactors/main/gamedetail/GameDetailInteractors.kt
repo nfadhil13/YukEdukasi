@@ -6,5 +6,6 @@ class GameDetailInteractors
 @Inject
 constructor(
         val getMateriOfGame: GetMateriOfGame,
-        val getTestOfGame: GetTestOfGame
+        val getTestOfGame: GetTestOfGame,
+        val updateTestScore: UpdateTestScore
 )

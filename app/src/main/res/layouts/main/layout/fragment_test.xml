@@ -6,161 +6,35 @@
     android:layout_height="match_parent"
     android:background="@color/materi_background">
 
-
-    <TextView
-        android:text="Tekan Tombol di bawah ini"
-        android:id="@+id/tv_materi_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/nunito_extrabold"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/imageview_header" />
-
-
-    <ImageView
-        android:id="@+id/imageview_header"
-        android:layout_marginTop="5dp"
-        android:layout_width="180dp"
-        android:layout_height="10dp"
-        android:scaleType="fitXY"
-        android:elevation="22dp"
-        android:src="@drawable/header"
-        app:layout_constraintBottom_toTopOf="@+id/cardview_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_icon"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:background="@color/colorAccent"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/anwer_container"
+        android:id="@+id/progress_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:src="@drawable/ic_baseline_volume_up_24"
-        android:id="@+id/imageview_question_sound"
-        android:layout_width="148dp"
-        android:layout_height="148dp"
-        android:elevation="21dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        app:layout_constraintBottom_toBottomOf="@+id/cardview_icon"
-        app:layout_constraintEnd_toEndOf="@+id/cardview_icon"
-        app:layout_constraintStart_toStartOf="@+id/cardview_icon"
-        app:layout_constraintTop_toTopOf="@+id/cardview_icon" />
 
-    <LinearLayout
-        android:id="@+id/anwer_container"
+        <ProgressBar
+            android:theme="@style/progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/progressbar_soal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="10dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_marginTop="18dp"
+        android:id="@+id/content_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/imageView_footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_answer_choice1"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageview_answer_choice1"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView_answer_choice1"
-                app:layout_constraintEnd_toEndOf="@+id/cardView_answer_choice1"
-                app:layout_constraintStart_toStartOf="@+id/cardView_answer_choice1"
-                app:layout_constraintTop_toTopOf="@+id/cardView_answer_choice1" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_answer_choice2"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageview_answer_choice2"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView_answer_choice2"
-                app:layout_constraintEnd_toEndOf="@+id/cardView_answer_choice2"
-                app:layout_constraintStart_toStartOf="@+id/cardView_answer_choice2"
-                app:layout_constraintTop_toTopOf="@+id/cardView_answer_choice2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_answer_choice3"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageview_answer_choice3"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView_answer_choice3"
-                app:layout_constraintEnd_toEndOf="@+id/cardView_answer_choice3"
-                app:layout_constraintStart_toStartOf="@+id/cardView_answer_choice3"
-                app:layout_constraintTop_toTopOf="@+id/cardView_answer_choice3" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/imageView_footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/materi_footer"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_cardview" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

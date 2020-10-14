@@ -1,11 +1,13 @@
 package com.fdev.yukedukasi.framework.presentation.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.databinding.ActivityAuthBinding
 import com.fdev.yukedukasi.databinding.ActivityMainBinding
 import com.fdev.yukedukasi.framework.presentation.BaseActivity
+import com.fdev.yukedukasi.framework.presentation.auth.AuthActivity
 import com.fdev.yukedukasi.framework.presentation.show
 import com.fdev.yukedukasi.util.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,10 +34,16 @@ class MainActivity : BaseActivity() {
 
     private fun initObserver() {
         sessionManager.currentUser.observe(this , {siswa ->
-            siswa?.let{
-                //Back to log in fragment
+            if(siswa == null){
+                goToMainActivity()
             }
         })
+    }
+
+    private fun goToMainActivity() {
+        val intent = Intent(this , AuthActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun displayProgressBar(isDisplayed: Boolean) {

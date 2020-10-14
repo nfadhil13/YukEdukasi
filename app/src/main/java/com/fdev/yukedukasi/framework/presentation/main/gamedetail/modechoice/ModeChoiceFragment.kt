@@ -40,10 +40,10 @@ class ModeChoiceFragment : GameDetailBaseFragment() {
         arguments?.get(MenuFragment.GAME_BUNDLE_KEY)?.let {
             if (it is Game) {
                 initFragment(it)
-            } else {
-
+            } else{
+                showErrorMessage()
             }
-        }
+        }?: showErrorMessage()
     }
 
     private fun initFragment(choosenGame: Game) {
@@ -51,15 +51,8 @@ class ModeChoiceFragment : GameDetailBaseFragment() {
         showButton(false)
         setCurrentGame(choosenGame)
         showButton(true)
-        test(choosenGame)
     }
 
-    private fun test(game: Game) {
-        viewModel.viewState.observe(viewLifecycleOwner , Observer {
-            printLogD("Test", "${it.testViewState}")
-        })
-        viewModel.setStateEvent(GameDetailStateEvent.GetTestOfGame(game))
-    }
 
     private fun initUI(game : Game) {
         binding.apply {

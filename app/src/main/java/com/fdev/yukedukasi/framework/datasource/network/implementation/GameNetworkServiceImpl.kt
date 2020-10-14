@@ -37,4 +37,19 @@ constructor(
         )
     }
 
+    override suspend fun getSessionId(siswaId: Int, gamesId: Int): Int {
+        return gameApiService.getGameSession(
+                siswaId = siswaId.toString() ,
+                gameId = gamesId.toString()
+        ).data.gamesSession.gamesSessionId
+    }
+
+    override suspend fun updateSessionScore(sessionId: Int, score: Int){
+        gameApiService.updateGameScore(sessionId.toString() , score)
+    }
+
+    override suspend fun updateAnswer(sessionId: Int, gameTestId: Int, answerId: Int) {
+        gameApiService.updateAnswer(sessionId.toString() , gameTestId.toString() , answerId.toString())
+    }
+
 }

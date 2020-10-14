@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PilihanSoal(
-        val materiSeqId : Int,
+        val materiId : Int,
         val image : String
 ) : Parcelable

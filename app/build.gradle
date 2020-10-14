@@ -101,8 +101,8 @@ dependencies {
     kapt AnnotationProcess.hiltViewModelAnnotationProcess
 
 
-    //Leak canary
-    implementation Dependencies.leak_canary
+//    //Leak canary
+//    implementation Dependencies.leak_canary
 
 
     // Material Dialog
@@ -113,6 +113,15 @@ dependencies {
 
     //Exoplayer
     implementation Dependencies.exoPlayer
+
+    //Viewpager
+    implementation Dependencies.viewPager
+
+    //Google Material
+    implementation Dependencies.google_material
+
+    //Motion Toast
+    implementation Dependencies.motion_tost
 
 
 }

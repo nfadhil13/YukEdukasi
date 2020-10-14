@@ -4,10 +4,10 @@ import com.fdev.yukedukasi.business.data.network.NetworkResponseHandler
 import com.fdev.yukedukasi.business.data.network.abstraction.GameNetworkDataSource
 import com.fdev.yukedukasi.business.data.util.safeApiCall
 import com.fdev.yukedukasi.business.domain.model.Game
+import com.fdev.yukedukasi.business.domain.model.GameSession
 import com.fdev.yukedukasi.business.domain.model.Soal
 import com.fdev.yukedukasi.business.domain.state.*
 import com.fdev.yukedukasi.framework.presentation.main.gamedetail.state.GameDetailViewState
-import com.fdev.yukedukasi.framework.presentation.main.gamedetail.state.MateriViewState
 import com.fdev.yukedukasi.framework.presentation.main.gamedetail.state.TestViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
@@ -24,13 +24,17 @@ constructor(
 
         const val SUCCES_GET_TEST_GAME = "Berhasil mendapatkan data test game"
         const val FAILED_GET_TEST_GAME = "Gagal mendapatkan data test game"
+        const val FAILED_GET_GAME_SESSION = "Gagal mendapatkan session id"
 
     }
 
     fun getTestOfMateri(
             stateEvent: StateEvent,
+            siswaId: Int,
             game: Game
     ): Flow<DataState<GameDetailViewState>> = flow {
+
+        var gameSessionID = -1
 
         val networkRequest = safeApiCall(IO) {
             //Create empty list
@@ -43,12 +47,15 @@ constructor(
                 val materiList = gameNetworkDataSource.getGameMateri(game.id)
 
                 //If not null insert to game
-                if(!materiList.isEmpty()){
+                if (!materiList.isEmpty()) {
                     game.insertMateri(materiList)
-                    soalList.addAll(game.generateSoalList(gameNetworkDataSource.getGameSoal(game.id)))
+                    soalList.addAll(game.generateSoalListPilihan(gameNetworkDataSource.getGameSoal(game.id)))
                 }
-            }else{
-                soalList.addAll(game.generateSoalList(gameNetworkDataSource.getGameSoal(game.id)))
+            } else {
+                soalList.addAll(game.generateSoalListPilihan(gameNetworkDataSource.getGameSoal(game.id)))
+            }
+            if (!soalList.isEmpty()) {
+                gameSessionID = gameNetworkDataSource.getSessionId(siswaId, game.id)
             }
             soalList
         }
@@ -58,7 +65,7 @@ constructor(
                 response = networkRequest
         ) {
             override suspend fun handleSuccess(resultObj: List<Soal>): DataState<GameDetailViewState> {
-                if (!resultObj.isEmpty()) {
+                if (!resultObj.isEmpty() && gameSessionID > -1) {
                     game.clearMateri()
                     game.insertPertanyaan(resultObj)
                     return DataState.data(
@@ -69,16 +76,33 @@ constructor(
                             ),
                             stateEvent = stateEvent,
                             data = GameDetailViewState(currentGame = game, testViewState = TestViewState(
-                                    resultObj[0] , resultObj)
+                                    resultObj[0], resultObj, gameSession = GameSession(
+                                        gameSessionId = gameSessionID ,
+                                        score = 0,
+                                        siswaId = siswaId,
+                                        gamesId =  game.id
+                                    )
+                                )
                             ))
-                }else{
-                    return DataState.error(
-                            response = Response(
-                                    message = FAILED_GET_TEST_GAME,
-                                    messageType = MessageType.Error(),
-                                    uiComponentType = UIComponentType.Dialog()
-                            ),
-                            stateEvent = stateEvent)
+                } else {
+                    if (gameSessionID > -1) {
+                        return DataState.error(
+                                response = Response(
+                                        message = FAILED_GET_TEST_GAME,
+                                        messageType = MessageType.Error(),
+                                        uiComponentType = UIComponentType.Dialog()
+                                ),
+                                stateEvent = stateEvent)
+                    } else {
+                        return DataState.error(
+                                response = Response(
+                                        message = FAILED_GET_GAME_SESSION,
+                                        messageType = MessageType.Error(),
+                                        uiComponentType = UIComponentType.Dialog()
+                                ),
+                                stateEvent = stateEvent)
+                    }
+
                 }
 
             }

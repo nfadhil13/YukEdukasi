@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
+import com.fdev.yukedukasi.business.domain.state.UIComponentType
 import com.fdev.yukedukasi.framework.presentation.main.MainBaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,6 +29,7 @@ abstract class GameDetailBaseFragment : MainBaseFragment() {
 
     val requestManager
         get() = _requestManager!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,14 @@ abstract class GameDetailBaseFragment : MainBaseFragment() {
             }
 
         })
+    }
+
+    fun showErrorMessage() {
+        uiController.basicUIInteraction(
+                uiComponentType = UIComponentType.Dialog(),
+                message = getString(R.string.change_fragment_fail_message)
+        )
+        findNavController().navigate(R.id.menuFragment)
     }
 
     fun initGlide() {

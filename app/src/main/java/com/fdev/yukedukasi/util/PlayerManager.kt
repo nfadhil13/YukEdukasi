@@ -18,6 +18,8 @@ class OneTimePlayerManager(
 
     private var currentPlay = ""
 
+    private val currentMusicList= ArrayList<String>()
+
     init {
         _exoPlayer = SimpleExoPlayer.Builder(context).build();
     }
@@ -30,6 +32,26 @@ class OneTimePlayerManager(
             exoPlayer.addMediaItem(mediaItem)
             exoPlayer.prepare()
         }
+    }
+
+    fun prepareMusics(urls : List<String>){
+        if(currentMusicList != urls){
+            exoPlayer.clearMediaItems()
+            currentMusicList.clear()
+            currentMusicList.addAll(urls)
+            urls.forEach{ url ->
+                printLogD("URL" , " $url")
+                val mediaItem = MediaItem.fromUri(Uri.parse(url))
+                exoPlayer.addMediaItem(mediaItem)
+            }
+            exoPlayer.prepare()
+        }
+    }
+
+    fun playMusics(urls : List<String>){
+        prepareMusics(urls)
+        exoPlayer.seekTo(0 , 0)
+        exoPlayer.play()
     }
 
     fun playMusic() {

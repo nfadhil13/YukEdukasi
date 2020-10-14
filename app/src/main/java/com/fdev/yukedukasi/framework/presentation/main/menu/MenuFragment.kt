@@ -1,13 +1,10 @@
 package com.fdev.yukedukasi.framework.presentation.main.menu
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -22,15 +19,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
 
-
-
-
 @AndroidEntryPoint
 @FlowPreview
 @ExperimentalCoroutinesApi
-class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
+class MenuFragment : MainBaseFragment(), GameListAdapter.Interaction {
 
-    companion object{
+    companion object {
         const val GAME_BUNDLE_KEY = "framework.presentation.main.menu.menufragment.bundle_key"
     }
 
@@ -39,7 +33,7 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
     private val binding
         get() = _binding!!
 
-    private var _recyclerViewAdapter : GameListAdapter? = null
+    private var _recyclerViewAdapter: GameListAdapter? = null
 
     private val recyclerViewAdapter
         get() = _recyclerViewAdapter!!
@@ -47,7 +41,7 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
     private val viewModel: MenuViewModel by viewModels()
 
 
-    private var _requestManager : RequestManager? = null
+    private var _requestManager: RequestManager? = null
 
     private val requestManager
         get() = _requestManager!!
@@ -60,6 +54,7 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMenuBinding.inflate(layoutInflater, container, false)
         val view = binding.root
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -83,6 +78,18 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
                 adapter = recyclerViewAdapter
             }
         }
+
+        binding.toolbar?.inflateMenu(R.menu.main_menu)?.let {
+            binding.toolbar?.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.log_out -> {
+                        viewModel.logOut()
+
+                    }
+                }
+                true
+            }
+        }
         getAllGame()
     }
 
@@ -91,19 +98,19 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
     }
 
     private fun initObserver() {
-        viewModel.viewState.observe(viewLifecycleOwner,{viewState->
-            viewState.gameList?.let{
+        viewModel.viewState.observe(viewLifecycleOwner, { viewState ->
+            viewState.gameList?.let {
                 recyclerViewAdapter.submitList(it)
             }
         })
 
-        viewModel.shouldDisplayProgressBar.observe(viewLifecycleOwner , {
+        viewModel.shouldDisplayProgressBar.observe(viewLifecycleOwner, {
             uiController.displayProgressBar(it)
         })
 
-        viewModel.stateMessage.observe(viewLifecycleOwner , {
-            it?.let{
-                handleStateMessage(it , stateMessageCallback)
+        viewModel.stateMessage.observe(viewLifecycleOwner, {
+            it?.let {
+                handleStateMessage(it, stateMessageCallback)
             }
 
         })
@@ -121,7 +128,7 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
 
 
     private fun initGlide() {
-            _requestManager = Glide.with(requireActivity())
+        _requestManager = Glide.with(requireActivity())
     }
 
     override fun onDestroyView() {
@@ -138,8 +145,9 @@ class MenuFragment : MainBaseFragment() , GameListAdapter.Interaction {
 
     }
 
+
     override fun onItemSelected(position: Int, item: Game) {
         val bundle = bundleOf(GAME_BUNDLE_KEY to item)
-        findNavController().navigate(R.id.action_menuFragment_to_gamedetail_nav , bundle)
+        findNavController().navigate(R.id.action_menuFragment_to_gamedetail_nav, bundle)
     }
 }

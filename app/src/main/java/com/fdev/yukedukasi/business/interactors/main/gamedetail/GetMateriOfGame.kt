@@ -5,6 +5,7 @@ import com.fdev.yukedukasi.business.data.network.abstraction.GameNetworkDataSour
 import com.fdev.yukedukasi.business.data.util.safeApiCall
 import com.fdev.yukedukasi.business.domain.model.Game
 import com.fdev.yukedukasi.business.domain.model.Materi
+import com.fdev.yukedukasi.business.domain.model.User
 import com.fdev.yukedukasi.business.domain.state.*
 import com.fdev.yukedukasi.framework.presentation.main.gamedetail.state.GameDetailViewState
 import com.fdev.yukedukasi.framework.presentation.main.gamedetail.state.MateriViewState

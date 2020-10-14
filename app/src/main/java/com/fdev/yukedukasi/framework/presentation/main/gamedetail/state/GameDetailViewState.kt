@@ -1,9 +1,7 @@
 package com.fdev.yukedukasi.framework.presentation.main.gamedetail.state
 
 import android.os.Parcelable
-import com.fdev.yukedukasi.business.domain.model.Game
-import com.fdev.yukedukasi.business.domain.model.Materi
-import com.fdev.yukedukasi.business.domain.model.Soal
+import com.fdev.yukedukasi.business.domain.model.*
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -27,6 +25,9 @@ data class MateriViewState(
 data class TestViewState(
         var currentSoal: Soal? = null,
         var soalList : List<Soal>,
+        var gameSession: GameSession? = null,
+        var lastPostition : Int = 0,
+        var answerList : List<Answer>? = null
 ) : Parcelable
 
 

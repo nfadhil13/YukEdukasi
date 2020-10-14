@@ -35,14 +35,16 @@ data class Game(
         }
     }
 
-    fun generateSoalList(list: List<Soal>): List<Soal> {
+
+    //Fungsi ini meng - generate pilihan ganda untuk soal
+    //This fucntiion generates multiple choices for each test question
+    fun generateSoalListPilihan(list: List<Soal>): List<Soal> {
         val soalList = ArrayList<Soal>()
         list.forEach { soal ->
             val editedSoal = generateSoalPilihan(soal)
             soalList.add(editedSoal)
 
         }
-
         return soalList
     }
 
@@ -50,7 +52,7 @@ data class Game(
 
         val pilihanSoalList = ArrayList<PilihanSoal>()
 
-        val rightAnswerIndex = soal.correctAnswerMaterSeq - 1
+        val rightAnswerIndex = getMateriIndexByID(soal.correctAnswerMaterSeq)
         //Pilihan soal
         val rightAnswer = PilihanSoal(
                 soal.correctAnswerMaterSeq,
@@ -66,7 +68,7 @@ data class Game(
                 gameMateri.size - 1
         )
         val otherAnswer1 = PilihanSoal(
-                gameMateri[otherAnswer1Index].seq,
+                gameMateri[otherAnswer1Index].id,
                 gameMateri[otherAnswer1Index].image
         )
 
@@ -80,7 +82,7 @@ data class Game(
                 gameMateri.size - 1
         )
         val otherAnswer2 = PilihanSoal(
-                gameMateri[otherAnswer2Index].seq,
+                gameMateri[otherAnswer2Index].id,
                 gameMateri[otherAnswer2Index].image
         )
 
@@ -94,5 +96,11 @@ data class Game(
         return soal
     }
 
+    private fun getMateriIndexByID(id : Int) : Int{
+        gameMateri.forEachIndexed { index , materi ->
+            if(materi.id == id) return index
+        }
+        return -1
+    }
 
 }

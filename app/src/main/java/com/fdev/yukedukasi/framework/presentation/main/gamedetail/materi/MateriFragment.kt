@@ -72,13 +72,7 @@ class MateriFragment : GameDetailBaseFragment(), MaterListAdapter.Interaction {
 
 
 
-    private fun showErrorMessage() {
-        uiController.basicUIInteraction(
-                uiComponentType = UIComponentType.Dialog(),
-                message = getString(R.string.change_fragment_fail_message)
-        )
-        findNavController().navigate(R.id.menuFragment)
-    }
+
 
     private fun getMateri(game: Game) {
         viewModel.setStateEvent(GameDetailStateEvent.GetMateriOfGame(game))

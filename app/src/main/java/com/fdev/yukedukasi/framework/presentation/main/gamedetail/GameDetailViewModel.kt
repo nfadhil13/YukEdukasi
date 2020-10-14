@@ -3,8 +3,7 @@ package com.fdev.yukedukasi.framework.presentation.main.gamedetail
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
-import com.fdev.yukedukasi.business.domain.model.Game
-import com.fdev.yukedukasi.business.domain.model.Materi
+import com.fdev.yukedukasi.business.domain.model.*
 import com.fdev.yukedukasi.business.domain.state.DataState
 import com.fdev.yukedukasi.business.domain.state.StateEvent
 import com.fdev.yukedukasi.business.interactors.main.gamedetail.GameDetailInteractors
@@ -59,7 +58,11 @@ constructor(
             }
 
             is GameDetailStateEvent.GetTestOfGame -> {
-                materiInteractors.getTestOfGame.getTestOfMateri(stateEvent , stateEvent.game)
+                materiInteractors.getTestOfGame.getTestOfMateri(stateEvent ,stateEvent.userId ,  stateEvent.game )
+            }
+
+            is GameDetailStateEvent.SubmitTest -> {
+                materiInteractors.updateTestScore.updateTestScore(stateEvent , getFinalTest(stateEvent.totalScore) , stateEvent.listAnswer)
             }
 
             else -> {
@@ -68,6 +71,15 @@ constructor(
         }
 
         dataChannelManager.launchJob(stateEvent , job)
+    }
+
+    private fun getFinalTest(score : Int): GameSession {
+        getCurrentViewStateOrNew().testViewState?.gameSession?.let{
+            val currentGameSession = it
+            currentGameSession.score = score
+            return currentGameSession
+        }?: throw Exception("")
+
     }
 
     override fun initNewViewState(): GameDetailViewState = GameDetailViewState()
@@ -109,7 +121,7 @@ constructor(
     private fun setTestViewState(testViewState: TestViewState) {
         val update = getCurrentViewStateOrNew()
 
-        if(update.testViewState?.currentSoal?.gameId!= testViewState.currentSoal?.gameId){
+        if(update.testViewState?.currentSoal?.gameTestId!= testViewState.currentSoal?.gameTestId){
             update.testViewState = testViewState
             setViewState(update)
         }
@@ -117,6 +129,24 @@ constructor(
 
     fun reset() {
         setViewState(initNewViewState())
+    }
+
+    fun resetTest(){
+        val update = getCurrentViewStateOrNew()
+        update.testViewState = null
+        setViewState(update)
+    }
+
+    fun getCurrentSiswa(): Siswa?{
+        return sessionManager.currentUser.value
+    }
+
+    fun saveTestLastState(currentScore: Int, currentItem: Int , listAnswer : List<Answer>) {
+        val update = getCurrentViewStateOrNew()
+        update.testViewState?.gameSession?.score = currentScore
+        update.testViewState?.lastPostition = currentItem
+        update.testViewState?.answerList = listAnswer
+        setViewState(update)
     }
 
 

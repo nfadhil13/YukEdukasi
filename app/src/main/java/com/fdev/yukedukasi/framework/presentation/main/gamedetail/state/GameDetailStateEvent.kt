@@ -1,5 +1,6 @@
 package com.fdev.yukedukasi.framework.presentation.main.gamedetail.state
 
+import com.fdev.yukedukasi.business.domain.model.Answer
 import com.fdev.yukedukasi.business.domain.model.Game
 import com.fdev.yukedukasi.business.domain.state.StateEvent
 
@@ -14,10 +15,19 @@ sealed class GameDetailStateEvent : StateEvent {
 
     }
 
-    class GetTestOfGame(val game : Game) : GameDetailStateEvent() {
+    class GetTestOfGame(val game : Game , val userId : Int) : GameDetailStateEvent() {
         override fun errorInfo(): String  = "Gagal mendapatkan test game"
 
         override fun eventName(): String  = "GetTestOfGame"
+
+        override fun shouldDisplayProgressBar(): Boolean = true
+
+    }
+
+    class SubmitTest(val totalScore : Int , val listAnswer : List<Answer>) : GameDetailStateEvent() {
+        override fun errorInfo(): String  = "Gagal submit test"
+
+        override fun eventName(): String  = "SubmitTest"
 
         override fun shouldDisplayProgressBar(): Boolean = true
 

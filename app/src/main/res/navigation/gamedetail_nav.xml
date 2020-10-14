@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/testFragment"
         android:name="com.fdev.yukedukasi.framework.presentation.main.gamedetail.test.TestFragment"
-        android:label="TestFragment" />
+        android:label="TestFragment" >
+        <action
+            android:id="@+id/action_testFragment_to_modeChoiceFragment"
+            app:destination="@id/modeChoiceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/materiFragment"
         android:name="com.fdev.yukedukasi.framework.presentation.main.gamedetail.materi.MateriFragment"

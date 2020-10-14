@@ -56,6 +56,11 @@ constructor(
         setViewState(update)
     }
 
+
+    fun logOut(){
+        sessionManager.logOut()
+    }
+
     override fun initNewViewState(): MenuViewState {
         return MenuViewState()
     }

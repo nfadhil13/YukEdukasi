@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/materi_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/materi_background">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/progress_cardview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                        <ProgressBar
+                            android:theme="@style/progressbar"
+                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                            android:id="@+id/progressbar_soal"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:padding="10dp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/content_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/progress_cardview" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
