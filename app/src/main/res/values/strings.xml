@@ -22,8 +22,8 @@
     <string name="command_touch_button_label">Tekan Tombol di bawah ini</string>
     <string name="submit_label">Jawab</string>
     <string name="assign">Kumpulkan</string>
-    <string name="right_answer_label">Jawaban Benar</string>
-    <string name="wrong_answer_label">JawabanSalah</string>
+    <string name="right_answer_label">Jawaban Kamu Benar</string>
+    <string name="wrong_answer_label">Jawaban Kamu Salah</string>
     <string name="next_label">Lanjut</string>
     <string name="test_back_warn">Pengerjaan test tidak akan dihitung bila anda keluar</string>
     <string name="log_out_label">Log out</string>

@@ -12,10 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.model.Answer
 import com.fdev.yukedukasi.business.domain.model.Soal
-import com.fdev.yukedukasi.business.domain.state.AreYouSureCallback
-import com.fdev.yukedukasi.business.domain.state.StateMessage
-import com.fdev.yukedukasi.business.domain.state.StateMessageCallback
-import com.fdev.yukedukasi.business.domain.state.UIComponentType
+import com.fdev.yukedukasi.business.domain.state.*
 import com.fdev.yukedukasi.business.interactors.main.gamedetail.UpdateTestScore
 import com.fdev.yukedukasi.databinding.FragmentTestBinding
 import com.fdev.yukedukasi.framework.presentation.main.gamedetail.GameDetailBaseFragment
@@ -143,7 +140,7 @@ class TestFragment : GameDetailBaseFragment(), SoalListAdapter.Interaction {
                 .build()
 
         _soundPool = SoundPool.Builder()
-                .setMaxStreams(2)
+                .setMaxStreams(1)
                 .setAudioAttributes(audioAttributes)
                 .build()
 
@@ -199,11 +196,13 @@ class TestFragment : GameDetailBaseFragment(), SoalListAdapter.Interaction {
         printLogD("TestFragment", "$isTrue , $position")
         listAnswer.add(answer)
         val message = if (isTrue) getString(R.string.right_answer_label)
-        else getString(R.string.wrong_answer_label)
+        else  getString(R.string.wrong_answer_label)
         if (isTrue) {
+            uiController.basicUIInteraction(message , UIComponentType.ColorMotionToast(MessageType.Success()))
             currentScore = currentScore +1
             soundPool.play(rightSound, 0.5f, 0.5f, 1, 0, 0.99f)
         } else {
+            uiController.basicUIInteraction(message , UIComponentType.ColorMotionToast(MessageType.Error()))
             soundPool.play(wrongSound, 0.5f, 0.5f, 1, 0, 0.99f)
         }
 

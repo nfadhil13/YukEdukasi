@@ -26,7 +26,13 @@ sealed class UIComponentType{
 
     class SnackBar: UIComponentType()
 
+    class ColorMotionToast(
+            val type : MessageType
+    ) : UIComponentType()
+
     class None: UIComponentType()
+
+
 }
 
 sealed class MessageType{

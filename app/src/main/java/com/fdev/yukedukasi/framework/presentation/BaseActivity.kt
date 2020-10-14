@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.fdev.yukedukasi.R
 import com.fdev.yukedukasi.business.domain.state.*
 import com.google.android.material.snackbar.Snackbar
+import www.sanju.motiontoast.MotionToast
 
 abstract class BaseActivity : AppCompatActivity(), UIController {
 
@@ -54,6 +56,13 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
             }
 
 
+            is UIComponentType.ColorMotionToast -> {
+                displayColorMotionToast(
+                        message,
+                        uiComponentType.type
+                )
+            }
+
             is UIComponentType.Toast -> {
                 displayToast(
                         message
@@ -74,6 +83,25 @@ abstract class BaseActivity : AppCompatActivity(), UIController {
                         uiComponentType.callback
                 )
 
+            }
+        }
+    }
+
+    private fun displayColorMotionToast(message: String, type: MessageType) {
+        when (type){
+            is MessageType.Success -> {
+                MotionToast.createColorToast(this,message,
+                        MotionToast.TOAST_SUCCESS,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.SHORT_DURATION,
+                        ResourcesCompat.getFont(this,R.font.helvetica_regular))
+            }
+            is MessageType.Error -> {
+                MotionToast.createColorToast(this,message,
+                        MotionToast.TOAST_ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.SHORT_DURATION,
+                        ResourcesCompat.getFont(this,R.font.helvetica_regular))
             }
         }
     }

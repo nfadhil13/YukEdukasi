@@ -94,16 +94,19 @@ class SoalListAdapter(
 
             cardViewAnswerChoice1.setOnClickListener {
                 choosenAnswer = 0
+                enableCardView1()
                 if(!btnSubmit.isEnabled) enableButton()
             }
 
             cardViewAnswerChoice2.setOnClickListener {
                 choosenAnswer = 1
+                enableCardView2()
                 if(!btnSubmit.isEnabled)enableButton()
             }
 
             cardViewAnswerChoice3.setOnClickListener {
                 choosenAnswer = 2
+                enableCardView3()
                 if(!btnSubmit.isEnabled) enableButton()
             }
             btnSubmit.setOnClickListener {
@@ -117,6 +120,30 @@ class SoalListAdapter(
 
             disableButton()
 
+        }
+
+        private fun enableCardView1() {
+            binding.apply {
+                cardViewAnswerChoice1.strokeWidth = 8
+                cardViewAnswerChoice2.strokeWidth = 0
+                cardViewAnswerChoice3.strokeWidth = 0
+            }
+        }
+
+        private fun enableCardView2() {
+            binding.apply {
+                cardViewAnswerChoice1.strokeWidth = 0
+                cardViewAnswerChoice2.strokeWidth = 8
+                cardViewAnswerChoice3.strokeWidth = 0
+            }
+        }
+
+        private fun enableCardView3() {
+            binding.apply {
+                cardViewAnswerChoice1.strokeWidth = 0
+                cardViewAnswerChoice2.strokeWidth = 0
+                cardViewAnswerChoice3.strokeWidth = 8
+            }
         }
 
         private fun disableButton() {

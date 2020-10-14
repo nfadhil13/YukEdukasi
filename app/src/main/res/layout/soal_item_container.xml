@@ -73,7 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:theme="@style/Theme.MaterialComponents"
+                app:strokeColor="@color/green"
+                app:cardBackgroundColor="@color/colorAccent"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:id="@+id/cardView_answer_choice1"
@@ -82,7 +85,8 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:focusable="true" />
 
             <ImageView
                 android:id="@+id/imageview_answer_choice1"
@@ -104,7 +108,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:theme="@style/Theme.MaterialComponents"
+                app:strokeColor="@color/green"
+                app:cardBackgroundColor="@color/colorAccent"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:id="@+id/cardView_answer_choice2"
@@ -113,7 +120,8 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:focusable="true" />
 
             <ImageView
                 android:id="@+id/imageview_answer_choice2"
@@ -134,7 +142,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:theme="@style/Theme.MaterialComponents"
+                app:strokeColor="@color/green"
+                app:cardBackgroundColor="@color/colorAccent"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:id="@+id/cardView_answer_choice3"
